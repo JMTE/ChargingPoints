@@ -42,6 +42,11 @@ public class Usuario implements Serializable {
 
 	private String password;
 
+	//uni-directional many-to-one association to Estacione
+	@ManyToOne
+	@JoinColumn(name="id_estacion")
+	private Estacione estacione;
+
 	//uni-directional many-to-many association to Perfile
 	@ManyToMany
 	@JoinTable(
@@ -143,6 +148,14 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
+	public Estacione getEstacione() {
+		return this.estacione;
+	}
+
+	public void setEstacione(Estacione estacione) {
+		this.estacione = estacione;
+	}
+
 	public List<Perfile> getPerfiles() {
 		return this.perfiles;
 	}
@@ -158,32 +171,5 @@ public class Usuario implements Serializable {
 	public void setVehiculo(Vehiculo vehiculo) {
 		this.vehiculo = vehiculo;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (username == null) {
-			if (other.username != null)
-				return false;
-		} else if (!username.equals(other.username))
-			return false;
-		return true;
-	}
-	
-	
 
 }

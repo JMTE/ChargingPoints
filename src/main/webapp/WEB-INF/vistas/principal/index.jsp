@@ -195,13 +195,33 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Titulo</th>
-      <th scope="col">Autor</th>
-      <th scope="col">Precio</th>
+      <th scope="col">IDRESERVA</th>
+      <th scope="col">FECHA RESERVA</th>
+      <th scope="col">FECHA SERVICIO</th>
+      <th scope="col">ESTADO</th>
+     
+      <th scope="col">ESTACION</th>
+      <th scope="col">CLIENTE</th>
+      <th scope="col">PRECIO</th>
+      <th scope="col">PAGADO</th>
       
       
     </tr>
   </thead>
+  <tbody>
+  <c:forEach var="ele" items="${listaRecargasPorEmpresa }">
+  <tr>
+  <td>${ele.idReserva }</td>
+   <td>${ele.fechaReserva }</td>
+    <td>${ele.fechaServicio }</td>
+     <td>${ele.estado }</td>
+      <td>${ele.estacione.idEstacion }</td>
+       <td>${ele.usuario.username }</td>
+        <td>${ele.precioTotal }</td>
+         <td>${ele.pagado }</td>
+  </tr>
+  </c:forEach>
+  </tbody>
   
   
 </table>

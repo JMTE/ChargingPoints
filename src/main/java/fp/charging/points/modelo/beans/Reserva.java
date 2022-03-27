@@ -48,7 +48,7 @@ public class Reserva implements Serializable {
 
 	//uni-directional many-to-one association to Usuario
 	@ManyToOne
-	@JoinColumn(name="dni")
+	@JoinColumn(name="username")
 	private Usuario usuario;
 
 	public Reserva() {
