@@ -28,4 +28,10 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		return resRepo.findReservaPorEstacion(idEstacion);
 	}
 
+	@Override
+	public List<Reserva> findReservaPorUsuario(String username) {
+		// TODO Auto-generated method stub
+		return resRepo.findReservaPorUsuario(username);
+	}
+
 }

@@ -10,6 +10,8 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservasPorEmpresa(int idEstacion);
 	
+	List<Reserva> findReservaPorUsuario(String username);
+	
 	
 
 }

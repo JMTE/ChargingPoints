@@ -18,4 +18,6 @@ public interface IntUsuarioDao {
 	
 	List<Usuario> find10UltimosUsuariosRegistrados();
 	
+	int modificarDatosCliente(Usuario usuario);
+	
 }

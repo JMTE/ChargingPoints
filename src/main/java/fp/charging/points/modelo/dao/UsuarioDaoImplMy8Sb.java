@@ -79,4 +79,16 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 		return lista10Ultimos;
 	}
 
+	@Override
+	public int modificarDatosCliente(Usuario usuario) {
+		int filas=0;
+		try {
+			usuRepo.save(usuario);
+			filas=1;
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
 }

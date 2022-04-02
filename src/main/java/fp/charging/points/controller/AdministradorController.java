@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import fp.charging.points.modelo.dao.IntReservaDao;
 import fp.charging.points.modelo.dao.IntUsuarioDao;
 
 @Controller
@@ -15,6 +17,9 @@ public class AdministradorController {
 	@Autowired
 	
 	private IntUsuarioDao usuDao;
+	
+	@Autowired
+	private IntReservaDao resDao;
 	
 	@GetMapping("/")
 	public String inicio(Model model) {
@@ -51,5 +56,17 @@ public class AdministradorController {
 		
 		return "administrador/verReservas";
 	}
+	
+	@GetMapping("/historialUsuario/{username}")
+	
+	public String verHistorialUsuario(Model model, @PathVariable String username) {
+		
+		model.addAttribute("listaReservaPorUsuario", resDao.findReservaPorUsuario(username));
+		return "administrador/historialUsuario";
+		
+		
+	}
+	
+	
 
 }
