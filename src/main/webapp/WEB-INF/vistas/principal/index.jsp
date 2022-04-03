@@ -28,6 +28,13 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
+	<script src="/mainIndex.js"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+
+   
+ 
+   
 </head>
 <body>
 	<div class="container">
@@ -88,7 +95,7 @@
 							</sec:authorize>
 								<sec:authorize access="hasAuthority('CLIEN')">
 								<li class="nav-item"><a class="nav-link"
-									href="/cliente/añadirVehiculo"><i class="bi bi-cart">
+									href="/cliente/verVehiculo"><i class="bi bi-truck"></i>
 											 Vehiculo </i></a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAuthority('CLIEN')">
@@ -166,7 +173,14 @@
 									<td>${ele.username }</td>
 									<td>${ele.nombre }</td>
 									<td>${ele.apellidos }</td>
-									<td>${ele.perfiles }</td>
+									 
+     									<c:forEach var="ele2" items="${ele.perfiles }">
+    
+    											<td>${ele2.nombre }</td>
+     
+     								</c:forEach>
+   									
+									
 									<td><a class="btn btn-success "
 										href="/administrador/historialUsuario/${ele.username }">Historial
 											<i class="bi bi-pencil"></i>
@@ -218,6 +232,11 @@
    									</c:when>     
 							</c:choose>
 							<td>${ele.estado }</td>
+							<td>
+							<form action="/cliente/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
+							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
+							</form>
+							</td>
 						</tr>
 						</c:forEach>
 						
@@ -260,6 +279,7 @@
    									</c:when>     
 							</c:choose>
 							<td>${ele.estado }</td>
+							
 						</tr>
 						</c:forEach>
 						</tbody>
@@ -310,7 +330,9 @@
 		</div>
 
 	</div>
-
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.8.0/sweetalert2.min.js"></script>
+ <script type="text/javascript" src="/jquery-3.5.1.min.js"></script>
+   
 </body>
 </html>

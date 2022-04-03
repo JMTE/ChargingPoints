@@ -54,4 +54,16 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		return resRepo.findReservaPorUsuarioAndEstado(username);
 	}
 
+	@Override
+	public int cancelarReserva(int idReserva) {
+		int filas=0;
+		try {
+			resRepo.deleteById(idReserva);
+			filas=1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
 }

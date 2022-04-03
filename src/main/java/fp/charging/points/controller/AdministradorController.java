@@ -52,8 +52,9 @@ public class AdministradorController {
 	
 	@GetMapping("/verReservas")
 	
-	public String verReservas() {
+	public String verReservas(Model model) {
 		
+		model.addAttribute("listaReservas", resDao.findAll());
 		return "administrador/verReservas";
 	}
 	

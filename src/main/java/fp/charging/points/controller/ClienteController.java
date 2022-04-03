@@ -24,6 +24,7 @@ import fp.charging.points.modelo.dao.IntConectoreDao;
 import fp.charging.points.modelo.dao.IntEstacioneDao;
 import fp.charging.points.modelo.dao.IntReservaDao;
 import fp.charging.points.modelo.dao.IntUsuarioDao;
+import fp.charging.points.modelo.dao.IntVehiculoDao;
 
 @Controller
 
@@ -40,6 +41,8 @@ public class ClienteController {
 	private IntConectoreDao conDao;
 	@Autowired
 	private IntReservaDao resDao;
+	@Autowired
+	private IntVehiculoDao vehDao;
 
 	@GetMapping("/")
 
@@ -127,9 +130,40 @@ public class ClienteController {
 		
 		resDao.altaReserva(reserva);
 		
+		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
 		
+		return "redirect:/cliente/";
+	}
+	
+	@GetMapping("/cancelarReserva/{idReserva}")
+	public String cancelarReserva(Model model,@PathVariable int idReserva) {
 		
-		return "principal/index";
+		resDao.cancelarReserva(idReserva);
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+		return "redirect:/cliente/";
+	}
+	
+	@GetMapping("/verVehiculo")
+	public String verVehiculo(Model model) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		model.addAttribute("vehiculo", usuario.getVehiculo());
+		return "cliente/verVehiculo";
+	}
+	
+	@GetMapping("/eliminarVehiculo/{matricula}")
+	public String eliminarVehiculo(Model model, @PathVariable String matricula) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		usuario.setVehiculo(null);
+		usuDao.modificarDatosCliente(usuario);
+		vehDao.eliminarVehiculo(matricula);
+		
+		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+		
+		return "redirect:/cliente/";
 	}
 
 }

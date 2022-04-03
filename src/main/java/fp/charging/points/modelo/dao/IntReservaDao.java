@@ -16,6 +16,8 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservasPorUsuarioAndEstadoPendiente(String username);
 	
+	int cancelarReserva(int idReserva);
+	
 	
 
 }
