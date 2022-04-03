@@ -50,4 +50,33 @@ public class Conectore implements Serializable {
 		this.nombre = nombre;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idConector;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conectore other = (Conectore) obj;
+		if (idConector != other.idConector)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Conectore [idConector=" + idConector + ", descripcion=" + descripcion + ", nombre=" + nombre + "]";
+	}
+	
+	
+
 }

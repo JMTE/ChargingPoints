@@ -99,7 +99,7 @@
 						
 							<sec:authorize access="hasAuthority('CLIEN')">
 								<li class="nav-item">
-									<form class="d-flex" action="/tema" method="post">
+									<form class="d-flex" action="/cliente/buscarEstacionesLibres" method="post">
 										<input class="form-control me-2" type="text" name="fecha"
 											placeholder="Fecha para Reserva" onclick="ocultarError();"
 											onfocus="(this.type='date')" onblur="(this.type='text')"
@@ -190,31 +190,79 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Titulo</th>
-								<th scope="col">Autor</th>
-								<th scope="col">Precio</th>
+								<th scope="col">Direccion</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+								
 
 
 							</tr>
 						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservasPendientes }">
+						<tr>
+							<td>${ele.estacione.direccion }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+						</tr>
+						</c:forEach>
+						
+						</tbody>
 
 					</table>
 				</sec:authorize>
 
 				<sec:authorize access="hasAuthority('CLIEN')">
 
-					<h3>ULTIMAS RECARGAS</h3>
+					<h3>TODAS LAS RECARGAS</h3>
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">Titulo</th>
-								<th scope="col">Autor</th>
-								<th scope="col">Precio</th>
+								<th scope="col">Direccion</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
 
 
 							</tr>
 						</thead>
-
+						<tbody>
+						<c:forEach var="ele" items="${listaReservasPorCliente }">
+						<tr>
+							<td>${ele.estacione.direccion }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+						</tr>
+						</c:forEach>
+						</tbody>
 
 					</table>
 				</sec:authorize>

@@ -134,4 +134,34 @@ public class Reserva implements Serializable {
 		this.usuario = usuario;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idReserva;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Reserva other = (Reserva) obj;
+		if (idReserva != other.idReserva)
+			return false;
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Reserva [idReserva=" + idReserva + ", descripcion=" + descripcion + ", estado=" + estado + ", fechaReserva=" + fechaReserva + ", fechaServicio=" + fechaServicio + ", horasCarga="
+				+ horasCarga + ", pagado=" + pagado + ", precioTotal=" + precioTotal + ", estacione=" + estacione + ", usuario=" + usuario + "]";
+	}
+	
+	
+
 }

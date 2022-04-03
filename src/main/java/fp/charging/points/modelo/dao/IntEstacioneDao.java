@@ -7,4 +7,5 @@ import fp.charging.points.modelo.beans.Estacione;
 public interface IntEstacioneDao {
 
 	List<Estacione> findAll();
+	Estacione findEstacionById(int idEstacion);
 }

@@ -4,6 +4,8 @@
 window.onload = function(){
 
 	document.getElementById('habilitaCampos').onclick=habilitaCampos;
+	
+	
 	function habilitaCampos(){
 	document.getElementById('username').disabled=false;
 	document.getElementById('password').disabled=false;
@@ -16,6 +18,9 @@ window.onload = function(){
 	
 	
 	}
+	
+	
+	
 	
 }	
 

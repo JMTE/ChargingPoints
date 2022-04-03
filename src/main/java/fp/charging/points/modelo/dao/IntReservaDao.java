@@ -12,6 +12,10 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservaPorUsuario(String username);
 	
+	int altaReserva(Reserva reserva);
+	
+	List<Reserva> findReservasPorUsuarioAndEstadoPendiente(String username);
+	
 	
 
 }
