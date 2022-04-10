@@ -69,7 +69,8 @@
       <th scope="col">Apellido</th>
       <th scope="col">Username</th>
        <th scope="col">Fecha Alta</th>
-       
+       <th scope="col">Acciones</th>
+      <th scope="col">Eliminar</th>
        
       
       
@@ -83,7 +84,13 @@
      <td>${ele.apellidos} </td>
       <td>${ele.username } </td>
       <td>${ele.fechaRegistro }</td>
-      
+      <td>
+      	  <a class="btn btn-success " href="/administrador/historialUsuario/${ele.username }">Historial <i class="bi bi-pencil"></i></a>
+	   </td>
+	   <td>  
+	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-pencil"></i></a> 
+	      
+      </td>  
       
        
       

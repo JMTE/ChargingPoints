@@ -63,46 +63,52 @@
 
 <h2>LISTA DE RECARGAS</h2>
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Username</th>
-       <th scope="col">Fecha Alta</th>
-       
-       
-      
-      
-    </tr>
-  </thead>
-  
-  <tbody>
-  <c:forEach var="ele" items="${listaUsuarios}">
-  <tr>
-      <th scope="row"><i class="bi bi-forward-fill"> ${ele.nombre }</i></th>
-     <td>${ele.apellido} </td>
-      <td>${ele.username } </td>
-      <td>${ele.fechaRegistro }</td>
-      
-      
-       
-      
-      
-      
-     
-	  
-	 
-	   
-	
-         
-    </tr>
-  </c:forEach>
-  
-   
-  
-   
-  </tbody>
-</table>
+						<thead>
+							<tr>
+								<th scope="col">DNI</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+								
+
+
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservas }">
+						<tr>
+							<td>${ele.usuario.username }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							<c:choose>
+							<c:when test="${ele.estado.equals('Pendiente') }">
+							<td>
+							<form action="/cliente/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
+							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
+							</form>
+							</td>
+							</c:when>
+							</c:choose>
+							
+						</tr>
+						</c:forEach>
+						
+						</tbody>
+
+					</table>
 </div>
 
 </div>

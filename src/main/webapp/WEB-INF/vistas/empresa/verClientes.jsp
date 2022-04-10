@@ -69,6 +69,7 @@
       <th scope="col">Apellido</th>
       <th scope="col">Username</th>
        <th scope="col">Fecha Alta</th>
+       <th scope="col">Historial</th>
        
        
       
@@ -77,12 +78,13 @@
   </thead>
   
   <tbody>
-  <c:forEach var="ele" items="${listaUsuarios}">
+  <c:forEach var="ele" items="${listaClientes}">
   <tr>
       <th scope="row"><i class="bi bi-forward-fill"> ${ele.nombre }</i></th>
-     <td>${ele.apellido} </td>
+     <td>${ele.apellidos} </td>
       <td>${ele.username } </td>
       <td>${ele.fechaRegistro }</td>
+      <td><a class="btn btn-warning " href="/empresa/verHistorial/${ele.username }">Historial <i class="bi bi-pencil"></i></a> </td>
       
       
        

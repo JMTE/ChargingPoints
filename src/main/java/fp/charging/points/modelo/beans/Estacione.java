@@ -2,6 +2,9 @@ package fp.charging.points.modelo.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import org.hibernate.annotations.Proxy;
+
 import java.util.List;
 
 
@@ -9,6 +12,7 @@ import java.util.List;
  * The persistent class for the estaciones database table.
  * 
  */
+
 @Entity
 @Table(name="estaciones")
 @NamedQuery(name="Estacione.findAll", query="SELECT e FROM Estacione e")

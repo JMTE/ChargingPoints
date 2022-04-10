@@ -91,4 +91,23 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 		return filas;
 	}
 
+	@Override
+	public int borrarUsuario(String username) {
+		int filas=0;
+		try {
+			usuRepo.deleteById(username);
+			filas=1;
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
+	@Override
+	public List<Usuario> findUsuariosAdministradores() {
+		// TODO Auto-generated method stub
+		return usuRepo.findUsuariosAdministradores();
+	}
+
 }

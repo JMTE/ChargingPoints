@@ -73,6 +73,11 @@
 									href="/empresa/verRecargas"><i class="bi bi-bag">
 											Recargas</i></a></li>
 							</sec:authorize>
+							<sec:authorize access="hasAuthority('EMPRE')">
+								<li class="nav-item"><a class="nav-link"
+									href="/empresa/verPuntosCarga"><i class="bi bi-bag">
+											Puntos de Carga</i></a></li>
+							</sec:authorize>
 
 
 							<sec:authorize access="hasAuthority('ADMIN')">
@@ -128,26 +133,14 @@
 		</header>
 		<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
 			<div class="imagenhome">
-				<sec:authorize access="hasAnyAuthority('EMPRE','ADMIN')">
+				<sec:authorize access="isAuthenticated()">
 
 					<br>
 					<h4>
 						<i class="bi bi-person-check"> Usuario: ${usuario.username }</i>
 					</h4>
 					<br>
-					<sec:authorize access="hasAnyAuthority('ADMIN','EMPRE')">
-						<a class="btn btn-success " href="/admon/altaLibro"><i
-							class="bi bi-book"> Nuevo Libro</i></a>
-						<a class="btn btn-success " href="/admon/altaTema"><i
-							class="bi bi-journal-plus"> Nuevo Tema</i></a>
-						<br>
-						<br>
-						<form class="d-flex" action="/admon/verPedidos" method="post">
-							<input class="form-control" type="date" required name="fechaAlta">
-							<button class="btn btn-outline-success" type="submit">Ver
-								Pedidos</button>
-						</form>
-					</sec:authorize>
+					
 
 				</sec:authorize>
 
@@ -289,38 +282,127 @@
 
 
 				<sec:authorize access="hasAuthority('EMPRE')">
-					<h3>ULTIMAS RECARGAS EN LA ESTACIÓN</h3>
+					<h3>PROXIMAS RECARGAS</h3>
 					<table class="table">
 						<thead>
 							<tr>
-								<th scope="col">IDRESERVA</th>
-								<th scope="col">FECHA RESERVA</th>
-								<th scope="col">FECHA SERVICIO</th>
-								<th scope="col">ESTADO</th>
-
-								<th scope="col">ESTACION</th>
-								<th scope="col">CLIENTE</th>
-								<th scope="col">PRECIO</th>
-								<th scope="col">PAGADO</th>
+								<th scope="col">DNI</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+								
 
 
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="ele" items="${listaRecargasPorEmpresa }">
-								<tr>
-									<td>${ele.idReserva }</td>
-									<td>${ele.fechaReserva }</td>
-									<td>${ele.fechaServicio }</td>
-									<td>${ele.estado }</td>
-									<td>${ele.estacione.idEstacion }</td>
-									<td>${ele.usuario.username }</td>
-									<td>${ele.precioTotal }</td>
-									<td>${ele.pagado }</td>
-								</tr>
-							</c:forEach>
+						<c:forEach var="ele" items="${listaReservasPendientes }">
+						<tr>
+							<td>${ele.usuario.username }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							<td>
+							<form action="/cliente/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
+							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
+							</form>
+							</td>
+						</tr>
+						</c:forEach>
+						
 						</tbody>
 
+					</table>
+					<h3>TODAS LAS RECARGAS</h3>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">DNI</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservasTotales }">
+						<tr>
+							<td>${ele.usuario.username }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							
+						</tr>
+						</c:forEach>
+						</tbody>
+
+					</table>
+				</sec:authorize>
+
+				<sec:authorize access="hasAuthority('CLIEN')">
+
+					<h3>TODAS LAS RECARGAS</h3>
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">Direccion</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservasPorCliente }">
+						<tr>
+							<td>${ele.estacione.direccion }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							
+						</tr>
+						</c:forEach>
+						</tbody>
 
 					</table>
 				</sec:authorize>

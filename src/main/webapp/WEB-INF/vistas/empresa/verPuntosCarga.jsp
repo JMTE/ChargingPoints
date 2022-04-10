@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>EMPRESAS</title>
+<title>PUNTOS CARGA</title>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -31,18 +31,11 @@
       <ul class="navbar-nav">
      
      
-         <sec:authorize access="hasAuthority('ADMIN')">
-        <li>
-        <form class="d-flex" action="/tema" method="post">
-      <input class="form-control me-2" type="search" placeholder="Buscar Empresa" aria-label="Search" name="username">
-      <button class="btn btn-outline-success" type="submit">Buscar</button>
-      	</form>
-      	</li>
-      </sec:authorize> 
+       
       
       <sec:authorize access="isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/administrador/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/empresa/"><i class="bi bi-box-arrow-right"> Volver</i></a>
         </li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
@@ -61,16 +54,14 @@
 
 <div class="cuerpo bg-success p-2 text-white bg-opacity-25">
 
-<h2>LISTA DE EMPRESAS</h2>
+<h2>LISTA DE CLIENTES</h2>
 <table class="table">
   <thead>
     <tr>
       <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Username</th>
-       <th scope="col">Fecha Alta</th>
-        <th scope="col">Acciones</th>
+      <th scope="col">Descripcion</th>
       <th scope="col">Eliminar</th>
+      
        
        
       
@@ -79,30 +70,14 @@
   </thead>
   
   <tbody>
-  <c:forEach var="ele" items="${listaEmpresas}">
+  <c:forEach var="ele" items="${listaConectores}">
   <tr>
       <th scope="row"><i class="bi bi-forward-fill"> ${ele.nombre }</i></th>
-     <td>${ele.apellidos} </td>
-      <td>${ele.username } </td>
-      <td>${ele.fechaRegistro }</td>
-       <td>
-      	  <a class="btn btn-success " href="/administrador/historialUsuario/${ele.username }">Historial <i class="bi bi-pencil"></i></a>
-	   </td>
-	   <td>  
-	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-pencil"></i></a> 
+     <td>${ele.descripcion} </td>
+    <td>  
+	   		<a class="btn btn-danger " href="/empresa/eliminarConector/${ele.idConector }">Eliminar <i class="bi bi-pencil"></i></a> 
 	      
       </td>  
-      
-      
-       
-      
-      
-      
-     
-	  
-	 
-	   
-	
          
     </tr>
   </c:forEach>
@@ -112,6 +87,7 @@
    
   </tbody>
 </table>
+<a class="btn btn-success " href="/empresa/anadirConector">Añadir Conector <i class="bi bi-pencil"></i></a> 
 </div>
 
 </div>

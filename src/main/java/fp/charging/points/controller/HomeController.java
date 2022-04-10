@@ -18,9 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import fp.charging.points.modelo.beans.Conectore;
+import fp.charging.points.modelo.beans.Estacione;
 import fp.charging.points.modelo.beans.Perfile;
 import fp.charging.points.modelo.beans.Reserva;
 import fp.charging.points.modelo.beans.Usuario;
+import fp.charging.points.modelo.dao.IntEstacioneDao;
 import fp.charging.points.modelo.dao.IntUsuarioDao;
 
 
@@ -31,6 +34,9 @@ public class HomeController {
 	
 		@Autowired
 		private IntUsuarioDao usuDao;
+		
+		@Autowired
+		private IntEstacioneDao estDao;
 		
 		//Creamos un objeto de PasswordEncoder definido en la clase de DatSecurity para encriptar las contraseñas cuando registramos un usuario
 		@Autowired
@@ -139,7 +145,23 @@ public class HomeController {
 			System.out.println(usuario.getApellidos());
 			//Ponemos el enabled del usuario a 1
 			usuario.setEnabled(1);
-			
+			//Si es empresa, añadimos nuesta estacion a la base de datos
+			if(perfil==2) {
+				Estacione estacion=new Estacione();
+				estacion.setDireccion(usuario.getDireccion());
+				estacion.setNumeroPuntosCarga(0);
+				List<Conectore>lista=new ArrayList<Conectore>();
+				/*Conectore conector=new Conectore();
+				conector.setIdConector(1);
+				lista.add(conector);*/
+				estacion.setConectores(lista);
+				estDao.altaEstacion(estacion);
+				
+				
+			}
+			//Cuando la estacion está creada, la buscamos por direccion y la añadimos al usuario
+			String direccion=usuario.getDireccion();
+			usuario.setEstacione(estDao.findEstacionByDireccion(direccion));
 			//Ahora vamos a indicar los perfiles que tiene el nuevo usuario
 			List<Perfile> listaPerfilesUsuario= new ArrayList<Perfile>();
 			
@@ -148,6 +170,7 @@ public class HomeController {
 			
 			System.out.println(perfil);
 			perfilUsuario.setIdPerfil(perfil);
+			
 			
 			
 			

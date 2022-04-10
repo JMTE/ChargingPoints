@@ -7,23 +7,21 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Historial usuario</title>
+<title>AÑADIR CONECTOR</title>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/styles.css">
 </head>
-
 <body>
-
 <div class="container">
-
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand  " href="/index"><i class="bi bi-bank"> CHARGING POINTS</i></a>
+    <a class="navbar-brand  " href="/"><i class="bi bi-bank"> CHARGING POINTS</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,65 +34,42 @@
     
         
         
-      <sec:authorize access="isAuthenticated()">
+      <sec:authorize access="!isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/administrador/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/index"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
         </sec:authorize>
-        <sec:authorize access="isAuthenticated()">
-        <li class="nav-item" >
-          <a class="nav-link" href="/salir"><i class="bi bi-box-arrow-right"> Cerrar Sesión</i></a>
-        </li>
-        </sec:authorize>
-        
+       
         
       </ul>
     </div>
   </div>
 </nav>
 </header>
-<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
-<h4>Historial de  ${username }</h4>
-<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Direccion</th>
-								<th scope="col">Fecha Servicio</th>
-								<th scope="col">Conector</th>
-								<th scope="col">Precio Total</th>
-								<th scope="col">Franja Horaria</th>
-								<th scope="col">Estado</th>
-								
-
-
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach var="ele" items="${listaReservaPorUsuario }">
-						<tr>
-							<td>${ele.estacione.direccion }</td>
-							<td>${ele.fechaServicio }</td>
-							<td>${ele.descripcion }</td>
-							<td>${ele.precioTotal }</td>
-							<c:choose>
-    								<c:when test="${ele.horasCarga<2}">
-    								<td>Mañana</td>
-    								</c:when>
-									
-    								<c:when test="${ele.horasCarga>1}">
-    								<td>Tarde</td>
-   									</c:when>     
-							</c:choose>
-							<td>${ele.estado }</td>
-							
-						</tr>
-						</c:forEach>
-						
-						</tbody>
-
-					</table>
-<h2>Dinero total gastado : ${totalGastado }</h2>
 </div>
+<div class="container" id="contenedorAlta">
+
+<h1> AÑADIR CONECTOR</h1>
+<form action="/empresa/anadirConector" method="post">
+
+	 <div class="form-group">
+    <label >Novedad</label> 
+    <select  class="form-select" aria-label="Default select example" name="idConector" required>
+    <option value="1" selected>Tipo Conector</option>
+    <option value="1" >Schuko</option>
+    <option value="2" >SAE J1772 (Tipo 1)</option>
+    <option value="3" >Mennekes (Tipo 2)</option>
+    <option value="4" >CHAdeMo</option>
+    <option value="5" >combinado CSS</option>
+    
+    </select>
+  	</div>
+  	
+  <button type="submit" class="btn btn-success">Alta Usuario</button>
+  
+ 
+</form>
 </div>
+
 </body>
 </html>

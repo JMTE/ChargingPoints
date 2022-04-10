@@ -16,15 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import fp.charging.points.modelo.beans.Bateria;
 import fp.charging.points.modelo.beans.Conectore;
 import fp.charging.points.modelo.beans.Reserva;
 import fp.charging.points.modelo.beans.Usuario;
 import fp.charging.points.modelo.beans.Vehiculo;
+import fp.charging.points.modelo.dao.IntBateriaDao;
 import fp.charging.points.modelo.dao.IntConectoreDao;
 import fp.charging.points.modelo.dao.IntEstacioneDao;
 import fp.charging.points.modelo.dao.IntReservaDao;
 import fp.charging.points.modelo.dao.IntUsuarioDao;
 import fp.charging.points.modelo.dao.IntVehiculoDao;
+import fp.charging.points.repository.IntBateriaRepository;
 
 @Controller
 
@@ -43,6 +46,10 @@ public class ClienteController {
 	private IntReservaDao resDao;
 	@Autowired
 	private IntVehiculoDao vehDao;
+	
+	@Autowired
+	private IntBateriaDao batDao;
+	
 
 	@GetMapping("/")
 
@@ -150,6 +157,8 @@ public class ClienteController {
 	public String verVehiculo(Model model) {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
 		model.addAttribute("vehiculo", usuario.getVehiculo());
+		
+		
 		return "cliente/verVehiculo";
 	}
 	
@@ -164,6 +173,28 @@ public class ClienteController {
 		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
 		
 		return "redirect:/cliente/";
+	}
+	
+	@GetMapping("/anadirVehiculo")
+	public String añadirVehiculo(Model model) {
+		
+		return "cliente/anadirVehiculo";
+	}
+	@PostMapping("/anadirVehiculo")
+	public String añadirVehiculo(Model model, Vehiculo vehiculo, @RequestParam int idBateria, @RequestParam int idConector) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		
+		Bateria bateria=new Bateria();
+		Conectore conector=new Conectore();
+		bateria=batDao.findBateriaById(idBateria);
+		conector=conDao.findConectorById(idConector);
+		vehiculo.setConectore(conector);
+		vehiculo.setBateria(bateria);
+		vehDao.altaVehiculo(vehiculo);
+		usuario.setVehiculo(vehiculo);
+		usuDao.altaUsuario(usuario);
+		model.addAttribute("vehiculo", vehiculo);
+		return "redirect:/cliente/verVehiculo";
 	}
 
 }

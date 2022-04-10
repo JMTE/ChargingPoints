@@ -12,9 +12,13 @@ public interface IntUsuarioDao {
 	
 	int altaUsuario(Usuario usuario);
 	
+	int borrarUsuario(String username);
+	
 	List<Usuario> findUsuariosEmpresa();
 	
 	List<Usuario> findUsuariosCliente();
+	
+	List<Usuario> findUsuariosAdministradores();
 	
 	List<Usuario> find10UltimosUsuariosRegistrados();
 	

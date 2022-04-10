@@ -19,5 +19,12 @@ public interface IntReservaRepository extends JpaRepository<Reserva, Integer>{
 	@Query("select r from Reserva r where usuario.username=?1 and estado='Pendiente'")
 	public List<Reserva> findReservaPorUsuarioAndEstado(@Param("username") String username);
 	
-
+	@Query("select r from Reserva r where usuario.username=?1 and estado='Terminada'")
+	public List<Reserva> findReservaPorUsuarioAndEstadoTerminada(@Param("username") String username);
+	
+	@Query("select r from Reserva r where estacione.idEstacion=?1 and estado='Pendiente'")
+	public List<Reserva> findReservasPorEstacionAndEstadoPendiente(@Param("idEstacion") int idEstacion);
+	
+	
+	
 }

@@ -1,5 +1,6 @@
 package fp.charging.points.modelo.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,12 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		// TODO Auto-generated method stub
 		return resRepo.findReservaPorUsuarioAndEstado(username);
 	}
+	
+	@Override
+	public List<Reserva> findReservasPorUsuarioAndEstadoTerminada(String username) {
+		// TODO Auto-generated method stub
+		return resRepo.findReservaPorUsuarioAndEstadoTerminada(username);
+	}
 
 	@Override
 	public int cancelarReserva(int idReserva) {
@@ -64,6 +71,26 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 			e.printStackTrace();
 		}
 		return filas;
+	}
+
+	@Override
+	public List<Reserva> findReservasPorEstacionAndEstadoPendiente(int idEstacion) {
+		// TODO Auto-generated method stub
+		return resRepo.findReservasPorEstacionAndEstadoPendiente(idEstacion);
+	}
+
+	@Override
+	public List<Reserva> findReservasPorEstacionAndCliente(int idEstacion, String username) {
+		// TODO Auto-generated method stub
+		System.out.println(idEstacion + username);
+		List<Reserva> lista=new ArrayList<Reserva>();
+		for(Reserva ele:resRepo.findAll()) {
+			if(ele.getUsuario().getUsername().equals(username)&&ele.getEstacione().getIdEstacion()==idEstacion) {
+				lista.add(ele);
+			}
+		}
+		
+		return lista;
 	}
 
 }

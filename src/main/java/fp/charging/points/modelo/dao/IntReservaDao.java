@@ -16,7 +16,13 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservasPorUsuarioAndEstadoPendiente(String username);
 	
+	List<Reserva> findReservasPorEstacionAndEstadoPendiente(int idEstacion);
+	
+	List<Reserva> findReservasPorUsuarioAndEstadoTerminada(String username);
+	
 	int cancelarReserva(int idReserva);
+	
+	List<Reserva> findReservasPorEstacionAndCliente(int idEstacion, String username);
 	
 	
 

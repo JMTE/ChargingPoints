@@ -109,6 +109,13 @@ public class Vehiculo implements Serializable {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Vehiculo [matricula=" + matricula + ", autonomia=" + autonomia + ", nombre=" + nombre + ", potencia=" + potencia + ", bateria=" + bateria + ", conectore=" + conectore + "]";
+	}
+	
+	
 	
 	
 
