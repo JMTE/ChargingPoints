@@ -28,9 +28,11 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 		// TODO Auto-generated method stub
 		
 		int filas=0;
+		
 		try {
 			usuRepo.save(usuario);
 			filas=1;
+			
 			
 		}catch (Exception e){
 			e.printStackTrace();

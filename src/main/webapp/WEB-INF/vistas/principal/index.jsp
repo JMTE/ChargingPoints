@@ -365,48 +365,7 @@
 					</table>
 				</sec:authorize>
 
-				<sec:authorize access="hasAuthority('CLIEN')">
-
-					<h3>TODAS LAS RECARGAS</h3>
-					<table class="table">
-						<thead>
-							<tr>
-								<th scope="col">Direccion</th>
-								<th scope="col">Fecha Servicio</th>
-								<th scope="col">Conector</th>
-								<th scope="col">Precio Total</th>
-								<th scope="col">Franja Horaria</th>
-								<th scope="col">Estado</th>
-
-
-							</tr>
-						</thead>
-						<tbody>
-						<c:forEach var="ele" items="${listaReservasPorCliente }">
-						<tr>
-							<td>${ele.estacione.direccion }</td>
-							<td>${ele.fechaServicio }</td>
-							<td>${ele.descripcion }</td>
-							<td>${ele.precioTotal }</td>
-							
-							<c:choose>
-    								<c:when test="${ele.horasCarga<2}">
-    								<td>Mañana</td>
-    								</c:when>
-									
-    								<c:when test="${ele.horasCarga>1}">
-    								<td>Tarde</td>
-   									</c:when>     
-							</c:choose>
-							<td>${ele.estado }</td>
-							
-						</tr>
-						</c:forEach>
-						</tbody>
-
-					</table>
-				</sec:authorize>
-
+				
 			</div>
 			<a class="btn btn-success " href="/index">${volver }</a>
 		</div>

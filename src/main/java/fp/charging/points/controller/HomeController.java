@@ -156,19 +156,22 @@ public class HomeController {
 				lista.add(conector);*/
 				estacion.setConectores(lista);
 				estDao.altaEstacion(estacion);
+				String direccion=usuario.getDireccion();
+				usuario.setEstacione(estDao.findEstacionByDireccion(direccion));
+				
+			}else {
 				
 				
 			}
-			//Cuando la estacion está creada, la buscamos por direccion y la añadimos al usuario
-			String direccion=usuario.getDireccion();
-			usuario.setEstacione(estDao.findEstacionByDireccion(direccion));
+			
+			
 			//Ahora vamos a indicar los perfiles que tiene el nuevo usuario
 			List<Perfile> listaPerfilesUsuario= new ArrayList<Perfile>();
 			
 			Perfile perfilUsuario=new Perfile();
 			//Le asignamos perfil cliente
 			
-			System.out.println(perfil);
+			
 			perfilUsuario.setIdPerfil(perfil);
 			
 			
@@ -188,7 +191,7 @@ public class HomeController {
 			//Añadimos la fecha de alta 
 			usuario.setFechaRegistro(new Date());
 			
-			
+		
 			if(usuDao.altaUsuario(usuario)==0) {
 				model.addAttribute("mensaje", "Este username ya existe");
 				return "principal/registroUsuario";
