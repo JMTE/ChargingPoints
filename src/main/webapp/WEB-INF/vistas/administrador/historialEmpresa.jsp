@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>EMPRESAS</title>
+<title>HISTORIAL EMPRESA</title>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -33,8 +33,8 @@
      
          <sec:authorize access="hasAuthority('ADMIN')">
         <li>
-        <form class="d-flex" action="/administrador/buscarEmpresa" method="post">
-      <input class="form-control me-2" type="search" placeholder="Buscar Empresa" aria-label="Search" name="nombre">
+        <form class="d-flex" action="/tema" method="post">
+      <input class="form-control me-2" type="search" placeholder="Buscar Recarga" aria-label="Search" name="username">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
       	</form>
       	</li>
@@ -42,7 +42,7 @@
       
       <sec:authorize access="isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/administrador/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/administrador/verEmpresas"><i class="bi bi-box-arrow-right"> Volver</i></a>
         </li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
@@ -61,57 +61,54 @@
 
 <div class="cuerpo bg-success p-2 text-white bg-opacity-25">
 
-<h2>LISTA DE EMPRESAS</h2>
+<h2>LISTA DE RECARGAS</h2>
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Username</th>
-       <th scope="col">Fecha Alta</th>
-        <th scope="col">Acciones</th>
-      <th scope="col">Eliminar</th>
-       
-       
-      
-      
-    </tr>
-  </thead>
-  
-  <tbody>
-  <c:forEach var="ele" items="${listaEmpresas}">
-  <tr>
-      <th scope="row"><i class="bi bi-forward-fill"> ${ele.nombre }</i></th>
-     <td>${ele.apellidos} </td>
-      <td>${ele.username } </td>
-      <td>${ele.fechaRegistro }</td>
-       <td>
-      	  <a class="btn btn-success " href="/administrador/historialEmpresa/${ele.username }">Historial <i class="bi bi-pencil"></i></a>
-	   </td>
-	   <td>  
-	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-pencil"></i></a> 
-	      
-      </td>  
-      
-      
-       
-      
-      
-      
-     
-	  
-	 
-	   
-	
-         
-    </tr>
-  </c:forEach>
-  
-   
-  
-   
-  </tbody>
-</table>
+						<thead>
+							<tr>
+								<th scope="col">DNI</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+								
+
+
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservas }">
+						<tr>
+							<td>${ele.usuario.username }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							<c:choose>
+							<c:when test="${ele.estado.equals('Pendiente') }">
+							<td>
+							<form action="/administrador/cancelarReserva/${ele.idReserva }/${ele.estacione.idEstacion}" method="get" id="formularioCancelar">
+							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
+							</form>
+							</td>
+							</c:when>
+							</c:choose>
+							
+						</tr>
+						</c:forEach>
+						
+						</tbody>
+
+					</table>
 </div>
 
 </div>

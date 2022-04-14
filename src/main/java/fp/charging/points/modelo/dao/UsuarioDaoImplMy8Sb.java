@@ -112,4 +112,22 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 		return usuRepo.findUsuariosAdministradores();
 	}
 
+	@Override
+	public List<Usuario> findUsuariosByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return usuRepo.findUsuariosByNombre(nombre);
+	}
+
+	@Override
+	public List<Usuario> findEmpresasByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return usuRepo.findEmpresasByNombre(nombre);
+	}
+
+	@Override
+	public List<Usuario> findClientesByNombre(String nombre) {
+		// TODO Auto-generated method stub
+		return usuRepo.findClientesByNombre(nombre);
+	}
+
 }

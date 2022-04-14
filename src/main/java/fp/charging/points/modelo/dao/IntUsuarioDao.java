@@ -22,6 +22,12 @@ public interface IntUsuarioDao {
 	
 	List<Usuario> find10UltimosUsuariosRegistrados();
 	
+	List<Usuario> findUsuariosByNombre(String nombre);
+	
+	List<Usuario> findEmpresasByNombre(String nombre);
+	
+	List<Usuario> findClientesByNombre(String nombre);
+	
 	int modificarDatosCliente(Usuario usuario);
 	
 }

@@ -35,8 +35,8 @@
      
          <sec:authorize access="hasAuthority('ADMIN')">
         <li>
-        <form class="d-flex" action="/tema" method="post">
-      <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search" name="username">
+        <form class="d-flex" action="/administrador/buscarUsuario" method="post">
+      <input class="form-control me-2" type="search" placeholder="Buscar Usuario" aria-label="Search" name="nombre">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
       	</form>
       	</li>

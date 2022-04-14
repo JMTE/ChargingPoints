@@ -42,7 +42,7 @@
       
       <sec:authorize access="isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/administrador/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/cliente/"><i class="bi bi-box-arrow-right"> Volver</i></a>
         </li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">

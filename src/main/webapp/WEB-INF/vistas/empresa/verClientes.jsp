@@ -33,8 +33,8 @@
      
          <sec:authorize access="hasAuthority('EMPRE')">
         <li>
-        <form class="d-flex" action="/tema" method="post">
-      	<input class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search" name="username">
+        <form class="d-flex" action="/empresa/buscarCliente" method="post">
+      	<input class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search" name="nombre">
       	<button class="btn btn-outline-success" type="submit">Buscar</button>
       	</form>
       	</li>

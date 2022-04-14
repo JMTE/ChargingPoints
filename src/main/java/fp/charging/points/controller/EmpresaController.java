@@ -159,13 +159,33 @@ public class EmpresaController {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
 		BigDecimal totalGastado=new BigDecimal(0);
 		for(Reserva e:resDao.findReservasPorEstacionAndCliente(usuario.getEstacione().getIdEstacion(), username)) {
-			totalGastado=totalGastado.add(e.getPrecioTotal());
+			if(e.getEstado().equals("Terminada")) {
+				totalGastado=totalGastado.add(e.getPrecioTotal());
+			}
+			
 			
 		}
 		model.addAttribute("usuario", usuDao.findUsuarioByDni(username));
 		model.addAttribute("totalGastado", totalGastado);
 		model.addAttribute("listaReservasPorCliente", resDao.findReservasPorEstacionAndCliente(usuario.getEstacione().getIdEstacion(), username));
 		return "empresa/historialCliente";
+	}
+	
+	@PostMapping("/buscarCliente")
+	public String buscarCliente(Model model, String nombre, int idEstacion) {
+		
+		model.addAttribute("listaClientes", usuDao.findClientesByNombre(nombre));
+		return "empresa/verClientes";
+	}
+	
+	@GetMapping("/cancelarReserva/{idReserva}")
+	public String cancelarReserva(Model model,@PathVariable int idReserva) {
+		
+		resDao.cancelarReserva(idReserva);
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		model.addAttribute("listaReservasPendientes", resDao.findReservasPorEstacionAndEstadoPendiente(usuario.getEstacione().getIdEstacion()));
+		model.addAttribute("listaReservasTotales", resDao.findReservasPorEmpresa(usuario.getEstacione().getIdEstacion()));
+		return "redirect:/empresa/";
 	}
 	
 	

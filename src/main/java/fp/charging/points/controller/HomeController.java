@@ -58,6 +58,11 @@ public class HomeController {
 		return encriptado;
 		}
 		
+		@GetMapping("/")
+		public String VerPortada(){
+			
+			return "principal/portada";
+		}
 		@GetMapping("/login")
 		public String login(Model model) {
 			
@@ -125,7 +130,7 @@ public class HomeController {
 		//Borramos los items de la lista que contiene los libros del carrito y la lista que tenemos para representar el numero al lado del ver Carrito
 		listaCarrito.clear();
 		numeroCarrito.clear();
-		return "redirect:/index";
+		return "principal/portada";
 		}
 		
 		

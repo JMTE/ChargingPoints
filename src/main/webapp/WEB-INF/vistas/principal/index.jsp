@@ -30,18 +30,18 @@
 	crossorigin="anonymous"></script>
 	<script src="/mainIndex.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   
-
-   
- 
-   
+   <link rel="stylesheet"
+	href="/styles.css">
 </head>
+
 <body>
 	<div class="container">
 		<header>
+		
 			<nav class="navbar navbar-expand-lg navbar-light bg-light">
 				<div class="container-fluid">
-					<a class="navbar-brand  " href="/index"><i class="bi bi-shop">
+				<img alt="imagen" src="/Logo.jpg" style="width:50px">
+					<a class="navbar-brand  " href="/index"><i class="bi bi-plugin">
 							CHARGING POINTS</i></a>
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -82,14 +82,14 @@
 
 							<sec:authorize access="hasAuthority('ADMIN')">
 								<li class="nav-item"><a class="nav-link"
-									href="/administrador/verEmpresas"><i class="bi bi-book">
+									href="/administrador/verEmpresas"><i class="bi bi-building">
 											Empresas</i></a></li>
 
 							</sec:authorize>
 
 							<sec:authorize access="hasAuthority('ADMIN')">
 								<li class="nav-item"><a class="nav-link"
-									href="/administrador/verReservas"><i class="bi bi-bag">
+									href="/administrador/verReservas"><i class="bi bi-card-checklist">
 											Reservas</i></a></li>
 							</sec:authorize>
 
@@ -131,6 +131,7 @@
 				</div>
 			</nav>
 		</header>
+		<div class="cuerpo">
 		<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
 			<div class="imagenhome">
 				<sec:authorize access="isAuthenticated()">
@@ -315,7 +316,7 @@
 							</c:choose>
 							<td>${ele.estado }</td>
 							<td>
-							<form action="/cliente/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
+							<form action="/empresa/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
 							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
 							</form>
 							</td>
@@ -371,6 +372,7 @@
 		</div>
 
 	</div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.8.0/sweetalert2.min.js"></script>
  <script type="text/javascript" src="/jquery-3.5.1.min.js"></script>

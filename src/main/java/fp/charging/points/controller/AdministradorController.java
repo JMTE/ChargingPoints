@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import fp.charging.points.modelo.beans.Perfile;
@@ -71,15 +72,24 @@ public class AdministradorController {
 	
 	public String verHistorialUsuario(Model model, @PathVariable String username) {
 		
-		
-		BigDecimal totalGastado=new BigDecimal(0);
-		for(Reserva e:resDao.findReservasPorUsuarioAndEstadoTerminada(username)) {
-			totalGastado=totalGastado.add(e.getPrecioTotal());
+		Usuario usuario = usuDao.findUsuarioByDni(username);
+		if(usuario.getEstacione()==null) {
+			BigDecimal totalGastado=new BigDecimal(0);
+			for(Reserva e:resDao.findReservasPorUsuarioAndEstadoTerminada(username)) {
+				totalGastado=totalGastado.add(e.getPrecioTotal());
+				
+			}
+			model.addAttribute("listaReservaPorUsuario", resDao.findReservaPorUsuario(username));
+			model.addAttribute("totalGastado", totalGastado);
+			return "administrador/historialUsuario";
+		}else {
+			int idEstacion=usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
+			model.addAttribute("listaReservas", resDao.findReservasPorEmpresa(idEstacion));
+			return "administrador/historialEmpresa";
 			
 		}
-		model.addAttribute("listaReservaPorUsuario", resDao.findReservaPorUsuario(username));
-		model.addAttribute("totalGastado", totalGastado);
-		return "administrador/historialUsuario";
+		
+		
 		
 		
 	}
@@ -102,6 +112,43 @@ public class AdministradorController {
 		}
 		return "redirect:/administrador/verUsuarios";
 		
+	}
+	
+	@GetMapping("/historialEmpresa/{username}")
+	
+	public String historialEmpresa(Model model, @PathVariable String username) {
+		int idEstacion=usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
+		model.addAttribute("listaReservas", resDao.findReservasPorEmpresa(idEstacion));
+		return "administrador/historialEmpresa";
+	}
+	
+	@GetMapping("/cancelarReserva/{idReserva}/{idEstacion}")
+	public String cancelarReserva(Model model,@PathVariable int idReserva, @PathVariable int idEstacion) {
+		
+		resDao.cancelarReserva(idReserva);
+		
+		model.addAttribute("listaReservas", resDao.findReservasPorEmpresa(idEstacion));
+		return "redirect:/administrador/verEmpresas";
+	}
+	
+	@PostMapping("/buscarUsuario")
+	public String buscarUsuario(Model model, String nombre) {
+		System.out.println(nombre);
+		System.out.println(usuDao.findUsuariosByNombre(nombre));
+		model.addAttribute("listaUsuarios", usuDao.findUsuariosByNombre(nombre));
+		return "administrador/verUsuarios";
+	}
+	@PostMapping("/buscarCliente")
+	public String buscarCliente(Model model, String nombre) {
+		
+		model.addAttribute("listaClientes", usuDao.findClientesByNombre(nombre));
+		return "administrador/verClientes";
+	}
+	@PostMapping("/buscarEmpresa")
+	public String buscarEmpresa(Model model, String nombre) {
+		
+		model.addAttribute("listaEmpresas", usuDao.findEmpresasByNombre(nombre));
+		return "administrador/verEmpresas";
 	}
 	
 	

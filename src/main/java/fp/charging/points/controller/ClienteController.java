@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,6 +51,8 @@ public class ClienteController {
 	@Autowired
 	private IntBateriaDao batDao;
 	
+	@Autowired
+	private PasswordEncoder pwenco;
 
 	@GetMapping("/")
 
@@ -77,7 +80,8 @@ public class ClienteController {
 		//Usuario usuario=(Usuario) sesion.getAttribute("usuario");
 		System.out.println(usuario.getUsername());
 		Usuario usuario2=usuDao.findUsuarioByDni(usuario.getUsername());
-		usuario2.setPassword(usuario.getPassword());
+		
+		usuario2.setPassword(pwenco.encode(usuario.getPassword()));
 		usuario2.setNombre(usuario.getNombre());
 		usuario2.setApellidos(usuario.getApellidos());
 		usuario2.setDireccion(usuario.getDireccion());
@@ -89,14 +93,20 @@ public class ClienteController {
 	
 	@PostMapping("/buscarEstacionesLibres")
 	public String verEstacionesLibres(Model model, @RequestParam String fecha) throws ParseException {
-		//Formateamos la fecha que nos devuelve como String para poder introducirla  como Date
-		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-		Date dataFormateada = formato.parse(fecha);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		if(usuDao.findUsuarioByDni(usuario.getUsername()).getVehiculo()==null) {
+			return "cliente/verVehiculo";
+		}else {
+			//Formateamos la fecha que nos devuelve como String para poder introducirla  como Date
+			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+			Date dataFormateada = formato.parse(fecha);
+			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+			
+			model.addAttribute("listaEstacionesLibres",estDao.findAll());
+			model.addAttribute("fecha", sdf.format(dataFormateada));
+			return "cliente/verEstacionesLibres";
+		}
 		
-		model.addAttribute("listaEstacionesLibres",estDao.findAll());
-		model.addAttribute("fecha", sdf.format(dataFormateada));
-		return "cliente/verEstacionesLibres";
 	}
 	
 	@GetMapping("/reservar/{idEstacion}/{idConector}/{fechaServicio}/{horasCarga}")

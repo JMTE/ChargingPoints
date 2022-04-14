@@ -58,6 +58,7 @@
 <table class="table">
 						<thead>
 							<tr>
+								<th scope="col">Usuario</th>
 								<th scope="col">Direccion</th>
 								<th scope="col">Fecha Servicio</th>
 								<th scope="col">Conector</th>
@@ -72,6 +73,7 @@
 						<tbody>
 						<c:forEach var="ele" items="${listaReservas }">
 						<tr>
+							<td>${ele.usuario.username }</td>
 							<td>${ele.estacione.direccion }</td>
 							<td>${ele.fechaServicio }</td>
 							<td>${ele.descripcion }</td>
