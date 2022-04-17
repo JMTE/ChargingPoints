@@ -21,6 +21,8 @@ public class Usuario implements Serializable {
 
 	private String apellidos;
 
+	private int cpostal;
+
 	private String direccion;
 
 	private String email;
@@ -42,12 +44,13 @@ public class Usuario implements Serializable {
 
 	private String password;
 
-	//uni-directional many-to-one association to Estacione
-	@ManyToOne
-	@JoinColumn(name="id_estacion")
-	private Estacione estacione;
+	private String provincia;
 
-	//uni-directional many-to-many association to Perfile
+	//bi-directional many-to-one association to Reserva
+	@OneToMany(mappedBy="usuario")
+	private List<Reserva> reservas;
+
+	//bi-directional many-to-many association to Perfile
 	@ManyToMany
 	@JoinTable(
 		name="usuario_perfiles"
@@ -60,7 +63,12 @@ public class Usuario implements Serializable {
 		)
 	private List<Perfile> perfiles;
 
-	//uni-directional many-to-one association to Vehiculo
+	//bi-directional many-to-one association to Estacione
+	@ManyToOne
+	@JoinColumn(name="id_estacion")
+	private Estacione estacione;
+
+	//bi-directional many-to-one association to Vehiculo
 	@ManyToOne
 	@JoinColumn(name="matricula")
 	private Vehiculo vehiculo;
@@ -82,6 +90,14 @@ public class Usuario implements Serializable {
 
 	public void setApellidos(String apellidos) {
 		this.apellidos = apellidos;
+	}
+
+	public int getCpostal() {
+		return this.cpostal;
+	}
+
+	public void setCpostal(int cpostal) {
+		this.cpostal = cpostal;
 	}
 
 	public String getDireccion() {
@@ -148,12 +164,34 @@ public class Usuario implements Serializable {
 		this.password = password;
 	}
 
-	public Estacione getEstacione() {
-		return this.estacione;
+	public String getProvincia() {
+		return this.provincia;
 	}
 
-	public void setEstacione(Estacione estacione) {
-		this.estacione = estacione;
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public List<Reserva> getReservas() {
+		return this.reservas;
+	}
+
+	public void setReservas(List<Reserva> reservas) {
+		this.reservas = reservas;
+	}
+
+	public Reserva addReserva(Reserva reserva) {
+		getReservas().add(reserva);
+		reserva.setUsuario(this);
+
+		return reserva;
+	}
+
+	public Reserva removeReserva(Reserva reserva) {
+		getReservas().remove(reserva);
+		reserva.setUsuario(null);
+
+		return reserva;
 	}
 
 	public List<Perfile> getPerfiles() {
@@ -162,6 +200,14 @@ public class Usuario implements Serializable {
 
 	public void setPerfiles(List<Perfile> perfiles) {
 		this.perfiles = perfiles;
+	}
+
+	public Estacione getEstacione() {
+		return this.estacione;
+	}
+
+	public void setEstacione(Estacione estacione) {
+		this.estacione = estacione;
 	}
 
 	public Vehiculo getVehiculo() {
@@ -196,17 +242,6 @@ public class Usuario implements Serializable {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Usuario [username=" + username + ", apellidos=" + apellidos + ", direccion=" + direccion + ", email=" + email + ", enabled=" + enabled + ", fechaRegistro=" + fechaRegistro
-				+ ", fechaUltimaCarga=" + fechaUltimaCarga + ", nombre=" + nombre + ", numeroCargas=" + numeroCargas + ", password=" + password + ", estacione=" + estacione + ", perfiles=" + perfiles
-				+ ", vehiculo=" + vehiculo + "]";
-	}
-	
-	
-	
-	
 	
 
 }

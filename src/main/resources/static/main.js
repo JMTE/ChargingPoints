@@ -13,7 +13,11 @@ window.onload = function(){
 	document.getElementById('apellidos').disabled=false;
 	document.getElementById('direccion').disabled=false;
   	document.getElementById('email').disabled=false;
+  	document.getElementById('provincia').disabled=false;
+  	document.getElementById('cpostal').disabled=false;
+  	
 	document.getElementById('botonSubmit').disabled=false;
+	
 	document.getElementById('habilitaCampos').disabled=true;
 	
 	

@@ -59,7 +59,7 @@
   	</div>
   	<div class="form-group">
     <label for="matricula">Matricula</label>
-    <input type="text" class="form-control" required placeholder="Matricula" name="matricula">
+    <input type="text" class="form-control" maxlength="7" required placeholder="Matricula" name="matricula">
   	</div>
   	<div class="form-group">
     <label for="matricula">Potencia</label>

@@ -2,6 +2,7 @@ package fp.charging.points.modelo.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -22,6 +23,10 @@ public class Conectore implements Serializable {
 	private String descripcion;
 
 	private String nombre;
+
+	//bi-directional many-to-one association to Vehiculo
+	@OneToMany(mappedBy="conectore")
+	private List<Vehiculo> vehiculos;
 
 	public Conectore() {
 	}
@@ -50,33 +55,26 @@ public class Conectore implements Serializable {
 		this.nombre = nombre;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + idConector;
-		return result;
+	public List<Vehiculo> getVehiculos() {
+		return this.vehiculos;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Conectore other = (Conectore) obj;
-		if (idConector != other.idConector)
-			return false;
-		return true;
+	public void setVehiculos(List<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
 	}
 
-	@Override
-	public String toString() {
-		return "Conectore [idConector=" + idConector + ", descripcion=" + descripcion + ", nombre=" + nombre + "]";
+	public Vehiculo addVehiculo(Vehiculo vehiculo) {
+		getVehiculos().add(vehiculo);
+		vehiculo.setConectore(this);
+
+		return vehiculo;
 	}
-	
-	
+
+	public Vehiculo removeVehiculo(Vehiculo vehiculo) {
+		getVehiculos().remove(vehiculo);
+		vehiculo.setConectore(null);
+
+		return vehiculo;
+	}
 
 }

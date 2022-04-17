@@ -125,6 +125,21 @@
                                 <input id="email" name="email" value="${usuario.email }" disabled class="form-control">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                            <div class="col-md-8">
+                            	<label>Provincia</label>
+                                <input id="provincia" name="provincia" value="${usuario.provincia }" disabled class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
+                            <div class="col-md-8">
+                            	<label>Código Postal</label>
+                                <input id="cpostal" name="cpostal" type="number"  maxlength="5" value="${usuario.cpostal }" disabled class="form-control">
+                            </div>
+                        </div>
                         
                         
                         

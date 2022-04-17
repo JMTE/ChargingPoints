@@ -110,6 +110,7 @@
   </tr>
   </tbody>
 </table>
+<p>${mensaje }</p>
 <a class="btn btn-success " href="/cliente/anadirVehiculo/">Añadir Vehiculo <i class="bi bi-pencil"></i></a>
 </div>
 

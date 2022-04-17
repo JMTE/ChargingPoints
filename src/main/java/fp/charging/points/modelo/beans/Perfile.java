@@ -2,6 +2,7 @@ package fp.charging.points.modelo.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -22,6 +23,10 @@ public class Perfile implements Serializable {
 	private String descripcion;
 
 	private String nombre;
+
+	//bi-directional many-to-many association to Usuario
+	@ManyToMany(mappedBy="perfiles")
+	private List<Usuario> usuarios;
 
 	public Perfile() {
 	}
@@ -48,6 +53,14 @@ public class Perfile implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
 	}
 
 }

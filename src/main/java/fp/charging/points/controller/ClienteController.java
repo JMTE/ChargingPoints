@@ -85,6 +85,8 @@ public class ClienteController {
 		usuario2.setNombre(usuario.getNombre());
 		usuario2.setApellidos(usuario.getApellidos());
 		usuario2.setDireccion(usuario.getDireccion());
+		usuario2.setCpostal(usuario.getCpostal());
+		usuario2.setProvincia(usuario.getProvincia());
 		usuDao.modificarDatosCliente(usuario2);
 	
 		
@@ -187,24 +189,35 @@ public class ClienteController {
 	
 	@GetMapping("/anadirVehiculo")
 	public String añadirVehiculo(Model model) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		
+		if(usuario.getVehiculo()==null) {
 		
 		return "cliente/anadirVehiculo";
+		}else {
+			model.addAttribute("vehiculo", usuario.getVehiculo());
+			model.addAttribute("mensaje", "El cliente solamente puede tener registrado un vehiculo");
+			return "cliente/verVehiculo";
+		}
 	}
 	@PostMapping("/anadirVehiculo")
 	public String añadirVehiculo(Model model, Vehiculo vehiculo, @RequestParam int idBateria, @RequestParam int idConector) {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
 		
-		Bateria bateria=new Bateria();
-		Conectore conector=new Conectore();
-		bateria=batDao.findBateriaById(idBateria);
-		conector=conDao.findConectorById(idConector);
-		vehiculo.setConectore(conector);
-		vehiculo.setBateria(bateria);
-		vehDao.altaVehiculo(vehiculo);
-		usuario.setVehiculo(vehiculo);
-		usuDao.altaUsuario(usuario);
-		model.addAttribute("vehiculo", vehiculo);
-		return "redirect:/cliente/verVehiculo";
+	
+			Bateria bateria=new Bateria();
+			Conectore conector=new Conectore();
+			bateria=batDao.findBateriaById(idBateria);
+			conector=conDao.findConectorById(idConector);
+			vehiculo.setConectore(conector);
+			vehiculo.setBateria(bateria);
+			vehDao.altaVehiculo(vehiculo);
+			usuario.setVehiculo(vehiculo);
+			usuDao.altaUsuario(usuario);
+			model.addAttribute("vehiculo", vehiculo);
+			return "redirect:/cliente/verVehiculo";
+		
+		
 	}
 
 }

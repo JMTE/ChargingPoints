@@ -154,6 +154,8 @@ public class HomeController {
 			if(perfil==2) {
 				Estacione estacion=new Estacione();
 				estacion.setDireccion(usuario.getDireccion());
+				estacion.setProvincia(usuario.getProvincia());
+				estacion.setCpostal(usuario.getCpostal());
 				estacion.setNumeroPuntosCarga(0);
 				List<Conectore>lista=new ArrayList<Conectore>();
 				/*Conectore conector=new Conectore();

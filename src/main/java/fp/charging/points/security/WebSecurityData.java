@@ -81,20 +81,19 @@ public class WebSecurityData extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			//Los recursos estáticos no requieren autenticación
 			.antMatchers(
-			"/bootstrap/**",  "/images/**", "/css/**", "js/**").permitAll()
+			"/bootstrap/**",  "/img/**", "/css/**", "js/**","/static/**", "/resources/**").permitAll()
 			
 			// Las vistas públicas no requieren autenticación
 			.antMatchers("/",
 			"/login","/logout",
-			"/search","/registro","/pwd").permitAll()
+			"/search","/registro","/pwd","/").permitAll()
 			
 			// Asignamos permisos a URLs por ROLES
 			
 			.antMatchers("/administrador/**").hasAnyAuthority("ADMIN")
 			.antMatchers("/cliente/**").hasAnyAuthority("CLIEN")
 			.antMatchers("/empresa/**").hasAnyAuthority("EMPRE")
-			.antMatchers("/tema/**").hasAnyAuthority("ROL_ADMON","ROL_CLIENTE")
-			.antMatchers("/buscar/**").hasAnyAuthority("ROL_ADMON","ROL_CLIENTE")
+			
 			// Todas las demÃ¡s URLs de la AplicaciÃ³n requieren autenticaciÃ³n
 			.anyRequest().authenticated()
 			

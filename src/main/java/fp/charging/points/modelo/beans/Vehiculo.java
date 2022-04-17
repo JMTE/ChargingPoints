@@ -3,6 +3,7 @@ package fp.charging.points.modelo.beans;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
@@ -24,12 +25,16 @@ public class Vehiculo implements Serializable {
 
 	private BigDecimal potencia;
 
-	//uni-directional many-to-one association to Bateria
+	//bi-directional many-to-one association to Usuario
+	@OneToMany(mappedBy="vehiculo")
+	private List<Usuario> usuarios;
+
+	//bi-directional many-to-one association to Bateria
 	@ManyToOne
 	@JoinColumn(name="id_bateria")
 	private Bateria bateria;
 
-	//uni-directional many-to-one association to Conectore
+	//bi-directional many-to-one association to Conectore
 	@ManyToOne
 	@JoinColumn(name="id_conector")
 	private Conectore conectore;
@@ -69,6 +74,28 @@ public class Vehiculo implements Serializable {
 		this.potencia = potencia;
 	}
 
+	public List<Usuario> getUsuarios() {
+		return this.usuarios;
+	}
+
+	public void setUsuarios(List<Usuario> usuarios) {
+		this.usuarios = usuarios;
+	}
+
+	public Usuario addUsuario(Usuario usuario) {
+		getUsuarios().add(usuario);
+		usuario.setVehiculo(this);
+
+		return usuario;
+	}
+
+	public Usuario removeUsuario(Usuario usuario) {
+		getUsuarios().remove(usuario);
+		usuario.setVehiculo(null);
+
+		return usuario;
+	}
+
 	public Bateria getBateria() {
 		return this.bateria;
 	}
@@ -84,39 +111,5 @@ public class Vehiculo implements Serializable {
 	public void setConectore(Conectore conectore) {
 		this.conectore = conectore;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((matricula == null) ? 0 : matricula.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Vehiculo other = (Vehiculo) obj;
-		if (matricula == null) {
-			if (other.matricula != null)
-				return false;
-		} else if (!matricula.equals(other.matricula))
-			return false;
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "Vehiculo [matricula=" + matricula + ", autonomia=" + autonomia + ", nombre=" + nombre + ", potencia=" + potencia + ", bateria=" + bateria + ", conectore=" + conectore + "]";
-	}
-	
-	
-	
-	
 
 }

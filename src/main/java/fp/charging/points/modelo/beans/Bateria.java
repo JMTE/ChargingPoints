@@ -2,6 +2,7 @@ package fp.charging.points.modelo.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -26,6 +27,10 @@ public class Bateria implements Serializable {
 	private String densidadEnergetica;
 
 	private String nombre;
+
+	//bi-directional many-to-one association to Vehiculo
+	@OneToMany(mappedBy="bateria")
+	private List<Vehiculo> vehiculos;
 
 	public Bateria() {
 	}
@@ -60,6 +65,28 @@ public class Bateria implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	public List<Vehiculo> getVehiculos() {
+		return this.vehiculos;
+	}
+
+	public void setVehiculos(List<Vehiculo> vehiculos) {
+		this.vehiculos = vehiculos;
+	}
+
+	public Vehiculo addVehiculo(Vehiculo vehiculo) {
+		getVehiculos().add(vehiculo);
+		vehiculo.setBateria(this);
+
+		return vehiculo;
+	}
+
+	public Vehiculo removeVehiculo(Vehiculo vehiculo) {
+		getVehiculos().remove(vehiculo);
+		vehiculo.setBateria(null);
+
+		return vehiculo;
 	}
 
 }
