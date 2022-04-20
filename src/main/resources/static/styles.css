@@ -1,4 +1,13 @@
 @charset "ISO-8859-1";
+header{
+	background:#0CBB77;
+	color:white;
+	opacity:0.9;
+	font-size:20px;
+}
 .cuerpo{
-	border: #B9F6B2 8px ridge;
+	border: #0CBB77 8px ;
+	margin-top:20px;
+	background:black;
+	opacity:0.9;
 }

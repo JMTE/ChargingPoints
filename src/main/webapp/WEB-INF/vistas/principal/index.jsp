@@ -32,17 +32,33 @@
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <link rel="stylesheet"
 	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+
+</style>
 </head>
 
 <body>
 	<div class="container">
 		<header>
 		
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav class="navbar navbar-expand-lg navbar-light ">
 				<div class="container-fluid">
-				<img alt="imagen" src="/Logo.jpg" style="width:50px">
-					<a class="navbar-brand  " href="/index"><i class="bi bi-plugin">
-							CHARGING POINTS</i></a>
+				<img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+					<a class="navbar-brand  " href="/index">
+							CHARGING POINTS</a>
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 						aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -177,7 +193,7 @@
 									
 									<td><a class="btn btn-success "
 										href="/administrador/historialUsuario/${ele.username }">Historial
-											<i class="bi bi-pencil"></i>
+											<i class="bi bi-activity"></i>
 									</a></td>
 
 

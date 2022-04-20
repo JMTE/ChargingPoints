@@ -15,13 +15,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/styles.css">
+<style>
+body{
+margin-top:50px;
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+        opacity: 0.8;
+        color:white;
+}
+#contenedorAlta{
+margin-top:20px;
+ width:50%
+}
+</style>
 </head>
 <body>
 <div class="container">
 <header>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand  " href="/"><i class="bi bi-bank"> CHARGING POINTS</i></a>
+  <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+    <a class="navbar-brand  " href="/"> CHARGING POINTS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

@@ -16,6 +16,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="/eliminarUsuario.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet"
+	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+
+</style>
 </head>
 
 <body>
@@ -23,7 +41,7 @@
 <div class="container">
 
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
   <div class="container-fluid">
     <a class="navbar-brand  " href="/index"><i class="bi bi-bank"> CHARGING POINTS</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -44,7 +62,7 @@
       
       <sec:authorize access="isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/administrador/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/administrador/"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
@@ -61,7 +79,7 @@
 </header>
 
 
-<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
+<div class="cuerpo  p-2 text-white ">
 
 <h2>LISTA DE USUARIOS</h2>
 <table class="table">
@@ -96,10 +114,10 @@
      
      </c:forEach>
       <td>
-      	  <a class="btn btn-success " href="/administrador/historialUsuario/${ele.username }">Historial <i class="bi bi-pencil"></i></a>
+      	  <a class="btn btn-success " href="/administrador/historialUsuario/${ele.username }">Historial <i class="bi bi-activity"></i></a>
 	   </td>
 	   <td>  
-	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-pencil"></i></a> 
+	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-trash"></i></a> 
 	      
       </td>  
    </tr>

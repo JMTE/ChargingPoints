@@ -32,10 +32,16 @@
 
 <style type="text/css">
 
+body{
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+        opacity: 0.8;
+}
 .container{
-background: #20c997;
+background: #0CBB77;
 margin-top:100px;
-border: green 8px ridge;
+border: #0CBB77 8px ridge;
 padding-bottom:20px;
 }
 
@@ -47,9 +53,9 @@ padding-bottom:20px;
 		<header>
 			
 			 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-				
-					<a class="navbar-brand  " href="/index"><i class="bi bi-plugin">
-							CHARGING POINTS</i></a>
+				<img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+					<a class="navbar-brand  " href="/index">
+							CHARGING POINTS</a>
 			  </nav>
 
 		</header>

@@ -55,6 +55,7 @@ margin-top:100px;
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-success">
     <div class="container-fluid">
+    <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
       <a class="navbar-brand" href="#">CHARGING POINTS</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
