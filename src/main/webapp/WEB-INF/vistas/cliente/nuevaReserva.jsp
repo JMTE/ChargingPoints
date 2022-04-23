@@ -29,6 +29,33 @@
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
  <script src="/mainReserva.js"></script>
+ <link rel="stylesheet"
+	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       color:white
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+#contenedorAlta{
+margin-top:20px;
+ width:50%;
+
+margin-left:25%;
+}
+#contenedorAlta input, label{
+margin-left:25%;
+}
+
+</style>
 </head>
 
 <body>
@@ -36,7 +63,7 @@
 	<div class="container">
 
 		<header>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav class="navbar navbar-expand-lg navbar-light ">
 				<div class="container-fluid">
 					<a class="navbar-brand  " href="/index"><i class="bi bi-bank">
 							CHARGING POINTS</i></a>
@@ -72,14 +99,14 @@
 			</nav>
 		</header>
 
-		<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
+		<div class="cuerpo  p-2 text-white " id="contenedorAlta">
 	
 			<div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
                 <form class="form-horizontal" method="post" action="/cliente/reservar">
                     <fieldset>
-                        <legend class="text-center header">Datos Usuario</legend>
+                        <legend class="text-center header">INFORMACIÓN NUEVA CARGA</legend>
 
 
 						 <div class="form-group">
@@ -143,7 +170,7 @@
                         </div>
                         
                         
-                        
+                        <br>
 
                         <div class="form-group">
                             <div class="col-md-12 text-center">

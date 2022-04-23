@@ -56,11 +56,10 @@ margin-top:20px;
     
         
         
-      <sec:authorize access="!isAuthenticated()">
+     
         <li class="nav-item" >
           <a class="nav-link" href="/index"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
-        </sec:authorize>
        
         
       </ul>
