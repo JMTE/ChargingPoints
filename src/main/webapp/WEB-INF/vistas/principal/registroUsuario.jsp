@@ -33,7 +33,7 @@ margin-top:20px;
 <body>
 <div class="container">
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
   <div class="container-fluid">
   <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
     <a class="navbar-brand  " href="/"> CHARGING POINTS</a>

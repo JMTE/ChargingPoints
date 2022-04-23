@@ -29,6 +29,33 @@
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
  <script src="/main.js"></script>
+ <link rel="stylesheet"
+	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+#contenedorAlta{
+margin-top:20px;
+ width:50%;
+
+margin-left:25%;
+}
+#contenedorAlta input, label{
+margin-left:25%;
+}
+
+</style>
 </head>
 
 <body>
@@ -36,10 +63,11 @@
 	<div class="container">
 
 		<header>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
+			<nav class="navbar navbar-expand-lg navbar-light ">
 				<div class="container-fluid">
-					<a class="navbar-brand  " href="/index"><i class="bi bi-bank">
-							CHARGING POINTS</i></a>
+				  <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+					<a class="navbar-brand  " href="/index">
+							CHARGING POINTS</a>
 					<button class="navbar-toggler" type="button"
 						data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
 						aria-controls="navbarNavDropdown" aria-expanded="false"
@@ -57,7 +85,7 @@
 
 							<sec:authorize access="isAuthenticated()">
 								<li class="nav-item"><a class="nav-link"
-									href="/cliente/"><i class="bi bi-box-arrow-right">
+									href="/cliente/"><i class="bi bi-arrow-return-left">
 											Volver</i></a></li>
 							</sec:authorize>
 							<sec:authorize access="isAuthenticated()">
@@ -72,7 +100,7 @@
 			</nav>
 		</header>
 
-		<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
+		<div class="cuerpo bg-success p-2 text-white " id="contenedorAlta">
 	
 			<div class="row">
         <div class="col-md-12">

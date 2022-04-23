@@ -3,11 +3,12 @@ header{
 	background:#0CBB77;
 	color:white;
 	opacity:0.9;
-	font-size:20px;
+	font-size:17px;
 }
 .cuerpo{
 	border: #0CBB77 8px ;
 	margin-top:20px;
 	background:black;
 	opacity:0.9;
+	color:white;
 }

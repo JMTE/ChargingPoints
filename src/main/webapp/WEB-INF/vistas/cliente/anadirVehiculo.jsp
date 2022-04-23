@@ -15,32 +15,48 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet"
+	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       color:white
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+#contenedorAlta{
+margin-top:20px;
+ width:50%
+}
+
+</style>
 </head>
 <body>
 <div class="container">
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
   <div class="container-fluid">
-    <a class="navbar-brand  " href="/"><i class="bi bi-bank"> CHARGING POINTS</i></a>
+    <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+    <a class="navbar-brand  " href="/"> CHARGING POINTS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-      
         
-       
-       
     
-        
-        
-      <sec:authorize access="!isAuthenticated()">
         <li class="nav-item" >
           <a class="nav-link" href="/index"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
-        </sec:authorize>
-       
-        
+      
+    
       </ul>
     </div>
   </div>
@@ -94,8 +110,8 @@
     </select>
   	</div>
   	</div>
-  	
-  <button type="submit" class="btn btn-success">Alta Usuario</button>
+  	<br>
+  <button type="submit" class="btn btn-success"><i class="bi bi-plus-circle"> Alta Vehiculo</i></button>
   
  
 </form>

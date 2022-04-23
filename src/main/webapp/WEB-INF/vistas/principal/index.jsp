@@ -46,6 +46,10 @@ background-position:center center; /*respecto a body*/
 color:white;
 background:white:
 }
+#usuario{
+font-size:15px;
+}
+
 
 </style>
 </head>
@@ -86,12 +90,12 @@ background:white:
 							</sec:authorize>
 							<sec:authorize access="hasAuthority('EMPRE')">
 								<li class="nav-item"><a class="nav-link"
-									href="/empresa/verRecargas"><i class="bi bi-bag">
+									href="/empresa/verRecargas"><i class="bi bi-graph-up-arrow">
 											Recargas</i></a></li>
 							</sec:authorize>
 							<sec:authorize access="hasAuthority('EMPRE')">
 								<li class="nav-item"><a class="nav-link"
-									href="/empresa/verPuntosCarga"><i class="bi bi-bag">
+									href="/empresa/verPuntosCarga"><i class="bi bi-plug">
 											Puntos de Carga</i></a></li>
 							</sec:authorize>
 
@@ -119,11 +123,7 @@ background:white:
 									href="/cliente/verVehiculo"><i class="bi bi-truck"></i>
 											 Vehiculo </i></a></li>
 							</sec:authorize>
-							<sec:authorize access="hasAuthority('CLIEN')">
-								<li class="nav-item"><a class="nav-link"
-									href="/cliente/verCarrito"><i class="bi bi-cart"> Ver
-											Carrito( ${numeroCarrito } ) </i></a></li>
-							</sec:authorize>
+							
 						
 							<sec:authorize access="hasAuthority('CLIEN')">
 								<li class="nav-item">
@@ -136,11 +136,33 @@ background:white:
 									</form>
 								</li>
 							</sec:authorize>
+						
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<nav class="navbar navbar-expand-lg navbar-light bg-success">
+				<div class="container-fluid">
+					<div class="collapse navbar-collapse" id="navbarNavDropdown">
+						<ul class="navbar-nav">
+
+
 
 							<sec:authorize access="isAuthenticated()">
-								<li class="nav-item"><a class="nav-link" href="/salir"><i
-										class="bi bi-box-arrow-right"> Cerrar Sesión</i></a></li>
+								<li class="nav-item"><a class="nav-link" href="#"><i
+										class="bi bi-person-check" id="usuario"> Bienvenido
+											${usuario.nombre }</i></a></li>
 							</sec:authorize>
+							<sec:authorize access="isAuthenticated()">
+								<li class="nav-item"><a class="nav-link" href="/salir"><i
+										class="bi bi-box-arrow-right" id="usuario"> Cerrar Sesión</i></a></li>
+							</sec:authorize>
+							<sec:authorize access="hasAuthority('CLIEN')">
+								<li class="nav-item"><a class="nav-link"
+									href="/cliente/verCarrito"><i class="bi bi-cart"> Ver
+											Carrito( ${numeroCarrito } ) </i></a></li>
+							</sec:authorize>
+
 
 						</ul>
 					</div>
@@ -150,16 +172,7 @@ background:white:
 		<div class="cuerpo">
 		<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
 			<div class="imagenhome">
-				<sec:authorize access="isAuthenticated()">
-
-					<br>
-					<h4>
-						<i class="bi bi-person-check"> Usuario: ${usuario.username }</i>
-					</h4>
-					<br>
-					
-
-				</sec:authorize>
+				
 
 				<br>
 

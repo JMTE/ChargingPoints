@@ -14,6 +14,27 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet"
+	href="/styles.css">
+	<style>
+body{
+
+background: url("/img/portada2.jpg")  ;
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+       
+      
+}
+
+.table{
+color:white;
+background:white:
+}
+#descripcion{
+width:60%;
+}
+
+</style>
 </head>
 
 <body>
@@ -21,7 +42,7 @@
 <div class="container">
 
 <header>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light ">
   <div class="container-fluid">
     <a class="navbar-brand  " href="/index"><i class="bi bi-bank"> CHARGING POINTS</i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +56,7 @@
       
       <sec:authorize access="isAuthenticated()">
         <li class="nav-item" >
-          <a class="nav-link" href="/empresa/"><i class="bi bi-box-arrow-right"> Volver</i></a>
+          <a class="nav-link" href="/empresa/"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
@@ -52,9 +73,9 @@
 </header>
 
 
-<div class="cuerpo bg-success p-2 text-white bg-opacity-25">
+<div class="cuerpo text-white">
 
-<h2>LISTA DE CLIENTES</h2>
+<h2>LISTA DE CONECTORES DISPONIBLES EN LA ESTACIÓN</h2>
 <table class="table">
   <thead>
     <tr>
@@ -73,9 +94,9 @@
   <c:forEach var="ele" items="${listaConectores}">
   <tr>
       <th scope="row"><i class="bi bi-forward-fill"> ${ele.nombre }</i></th>
-     <td>${ele.descripcion} </td>
+     <td id="descripcion">${ele.descripcion} </td>
     <td>  
-	   		<a class="btn btn-danger " href="/empresa/eliminarConector/${ele.idConector }">Eliminar <i class="bi bi-pencil"></i></a> 
+	   		<a class="btn btn-danger " href="/empresa/eliminarConector/${ele.idConector }">Eliminar <i class="bi bi-trash"></i></a> 
 	      
       </td>  
          
@@ -87,7 +108,7 @@
    
   </tbody>
 </table>
-<a class="btn btn-success " href="/empresa/anadirConector">Añadir Conector <i class="bi bi-pencil"></i></a> 
+<a class="btn btn-success " href="/empresa/anadirConector">Añadir Conector <i class="bi bi-plus-circle"></i></a> 
 </div>
 
 </div>
