@@ -43,9 +43,17 @@ font-family: 'Advent Pro'
 }
 
 #texto{
-
+width:40%;
+height:18%;
 margin-top:100px;
-
+text-align:center;
+padding: 3px 10px;
+  border: #0CBB77 10px solid;
+  border-radius: 30px;
+background:  url("/img/fondotexto.jpg");
+background-position:center center; /*respecto a body*/
+        background-repeat: no-repeat;
+        opacity: 0.8;
 }
 </style>    
  
@@ -80,6 +88,7 @@ margin-top:100px;
 <div id="container2">
 	<div id="texto">
 	<h4>NUESTRO RETO:</h4>
+	
 	<h3>Igualar la comodidad del coche de gasolina para que la gente compre un coche ELECTRICO </h3>
 	</div>
 

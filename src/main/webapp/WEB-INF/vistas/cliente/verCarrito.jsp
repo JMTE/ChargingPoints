@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>ESTACIONES LIBRES</title>
+<title>RECARGAS</title>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -52,7 +52,7 @@ background:white:
          <sec:authorize access="hasAuthority('ADMIN')">
         <li>
         <form class="d-flex" action="/tema" method="post">
-      <input class="form-control me-2" type="search" placeholder="Buscar Cliente" aria-label="Search" name="username">
+      <input class="form-control me-2" type="search" placeholder="Buscar Recarga" aria-label="Search" name="username">
       <button class="btn btn-outline-success" type="submit">Buscar</button>
       	</form>
       	</li>
@@ -77,56 +77,60 @@ background:white:
 </header>
 
 
-<div class="cuerpo  text-white ">
+<div class="cuerpo  p-2 text-white ">
 
-<h2>LISTA DE ESTACIONES LIBRES PARA EL ${fecha }</h2>
+<h2>LISTA DE RECARGAS</h2>
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Direccion</th>
-      <th scope="col"></th>
-      
-    </tr>
-  </thead>
-  
-  <tbody>
-  <c:forEach var="ele" items="${listaEstacionesLibres}">
-  <tr>
-      <th scope="row"><i class="bi bi-forward-fill"> ${ele.idEstacion }</i></th>
-     <td>${ele.direccion} </td>
-     
-     <td>
-     
-     <table  class="table">
-      <thead>
-    <tr>
-      <th scope="col">Conectores</th>
-      <th scope="col">Reservar</th>
-    </tr>
-  </thead>
-     <c:forEach var="ele2" items="${ele.conectores }">
-    <tr>
-    <td> ${ele2.nombre }</td>
-    <td>
-    	<a class="btn btn-warning " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/1"><i
-							class="bi bi-brightness-high"> Mañana</i></a>
-							 <a class="btn btn-info " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/2"><i
-							class="bi bi-sunset"> Tarde</i></a>
-    	</td>
-    </tr>
-     </c:forEach>
-    
-    </table>
-    </td>
-         
-    </tr>
-  </c:forEach>
+						<thead>
+							<tr>
+								<th scope="col">DNI</th>
+								<th scope="col">Fecha Servicio</th>
+								<th scope="col">Conector</th>
+								<th scope="col">Precio Total</th>
+								<th scope="col">Franja Horaria</th>
+								<th scope="col">Estado</th>
+								
 
-  </tbody>
-</table>
+
+							</tr>
+						</thead>
+						<tbody>
+						<c:forEach var="ele" items="${listaReservas }">
+						<tr>
+							<td>${ele.usuario.username }</td>
+							<td>${ele.fechaServicio }</td>
+							<td>${ele.descripcion }</td>
+							<td>${ele.precioTotal }</td>
+							<c:choose>
+    								<c:when test="${ele.horasCarga<2}">
+    								<td>Mañana</td>
+    								</c:when>
+									
+    								<c:when test="${ele.horasCarga>1}">
+    								<td>Tarde</td>
+   									</c:when>     
+							</c:choose>
+							<td>${ele.estado }</td>
+							<c:choose>
+							<c:when test="${ele.estado.equals('Pendiente') }">
+							<td>
+							<form action="/cliente/eliminarCarrito/${ele.idReserva }" method="get" id="formularioCancelar">
+							<input id=botonCancelar type="submit" class="btn btn-danger " value="Eliminar">
+							</form>
+							</td>
+							</c:when>
+							</c:choose>
+							
+						</tr>
+						</c:forEach>
+						
+						</tbody>
+
+					</table>
+
 </div>
-
+ <a class="btn btn-success " href="/cliente/reservar/"><i
+							class="bi bi-brightness-high">Reservar</i></a>
 </div>
 </body>
 </html>

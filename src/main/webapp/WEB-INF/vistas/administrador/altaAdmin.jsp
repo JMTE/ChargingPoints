@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Registro Usuario</title>
+<title>Alta Administrador</title>
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
@@ -49,11 +49,11 @@ margin-top:20px;
     
         
         
-      <sec:authorize access="!isAuthenticated()">
+     
         <li class="nav-item" >
-          <a class="nav-link" href="/"><i class="bi bi-arrow-return-left"> Volver</i></a>
+          <a class="nav-link" href="/index"><i class="bi bi-arrow-return-left"> Volver</i></a>
         </li>
-        </sec:authorize>
+       
        
         
       </ul>
@@ -64,17 +64,16 @@ margin-top:20px;
 </div>
 <div class="container" id="contenedorAlta">
 
-<h1> REGISTRO DE USUARIO</h1>
-<form action="/registro" method="post">
+<h1> REGISTRO DE USUARIO ADMINISTRADOR</h1>
+<form action="/administrador/altaAdmin" method="post">
 
 	 <div class="form-group">
-    <label >Tipo Usuario</label> 
-    <select  class="form-select" aria-label="Default select example" name="perfil" required>
-    <option value="3" selected>Empresa o Cliente</option>
-    <option value="2" >Empresa</option>
-    <option value="3" >Cliente</option>
-    
-    </select>
+     
+    <div class="form-group">
+    <label for="exampleInputEmail1">Tipo de Usuario</label>
+    <input type="text" class="form-control" required value="Administrador" readonly>
+   
+  </div>
   	</div>
   	<div class="form-group">
     <label for="exampleInputEmail1">DNI</label>

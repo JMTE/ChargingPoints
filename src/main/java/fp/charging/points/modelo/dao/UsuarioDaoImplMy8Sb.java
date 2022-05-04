@@ -65,7 +65,7 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 		List<Usuario> lista= new ArrayList<Usuario>();
 		lista=usuRepo.findAll();
 		
-		
+	
 		Collections.sort(lista, new Comparator<Usuario>() {
 		public int compare(Usuario o1, Usuario o2) { 
 			return o1.getFechaRegistro().compareTo(o2.getFechaRegistro());

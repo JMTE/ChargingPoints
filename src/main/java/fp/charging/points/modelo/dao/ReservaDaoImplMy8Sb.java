@@ -36,16 +36,19 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 	}
 
 	@Override
-	public int altaReserva(Reserva reserva) {
+	public int altaReservas(List<Reserva> reservas) {
 		// TODO Auto-generated method stub
-		
 		int filas=0;
-		try {
-			resRepo.save(reserva);
-			filas=1;
-		}catch(Exception e) {
-			e.printStackTrace();
+		for(Reserva r:reservas) {
+			try {
+				resRepo.save(r);
+				filas=1;
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
+		
+		
 		return filas;
 	}
 
@@ -91,6 +94,13 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		}
 		
 		return lista;
+	}
+
+	@Override
+	public int addReservaCarrito(Reserva reserva, List<Reserva> lista) {
+		lista.add(reserva);
+		return lista !=null?1:0;
+		
 	}
 
 }

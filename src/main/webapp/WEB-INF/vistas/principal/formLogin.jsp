@@ -52,10 +52,13 @@ padding-bottom:20px;
 	<div class="container" >
 		<header>
 			
-			 <nav class="navbar navbar-expand-lg navbar-light bg-light">
+			 <nav class="navbar navbar-expand-lg navbar-light ">
 				<img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
 					<a class="navbar-brand  " href="/index">
 							CHARGING POINTS</a>
+							
+          <a class="nav-link" style="color:white" href="/"><i class="bi bi-arrow-return-left"> Volver</i></a>
+        
 			  </nav>
 
 		</header>
@@ -70,7 +73,7 @@ padding-bottom:20px;
 				</div>
 				<div class="mb-3">
 					<label for="password" class="form-label">Password</label> <input
-						type="text" class="form-control" id="password" name="password" >
+						type="password" class="form-control" id="password" name="password" >
 				</div>
 
 				<p>${mensaje }</p>

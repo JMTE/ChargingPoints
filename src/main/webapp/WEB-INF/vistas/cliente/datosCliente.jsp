@@ -120,7 +120,7 @@ margin-left:25%;
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-user bigicon"></i></span>
                             <div class="col-md-8">
                             	<label>Password</label>
-                                <input  id="password" name="password" type="password" value="" disabled class="form-control">
+                                <input  id="password" name="password" type="password" value="${usuario.password }" disabled class="form-control">
                             </div>
                         </div>
 

@@ -2,6 +2,8 @@ package fp.charging.points.modelo.dao;
 
 import java.util.List;
 
+
+
 import fp.charging.points.modelo.beans.Reserva;
 
 public interface IntReservaDao {
@@ -12,7 +14,7 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservaPorUsuario(String username);
 	
-	int altaReserva(Reserva reserva);
+	int altaReservas(List<Reserva> reservas);
 	
 	List<Reserva> findReservasPorUsuarioAndEstadoPendiente(String username);
 	
@@ -23,6 +25,9 @@ public interface IntReservaDao {
 	int cancelarReserva(int idReserva);
 	
 	List<Reserva> findReservasPorEstacionAndCliente(int idEstacion, String username);
+	
+	//Añadir libros al carrito
+	int addReservaCarrito(Reserva reserva, List<Reserva> lista);
 	
 	
 

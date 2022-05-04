@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+
 
 import fp.charging.points.modelo.beans.Bateria;
 import fp.charging.points.modelo.beans.Conectore;
@@ -40,6 +43,10 @@ public class ClienteController {
 	@Autowired
 	HttpSession sesion;
 	@Autowired
+	HttpSession sesionNumeroCarrito;
+	@Autowired
+	HttpSession listaSesion;
+	@Autowired
 	private IntEstacioneDao estDao;
 	@Autowired
 	private IntConectoreDao conDao;
@@ -58,6 +65,9 @@ public class ClienteController {
 
 	public String index(Model model) {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		//Recuperamos la lista que nos va a dar el numero que tiene el Ver Carrito a su lado
+		List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+		model.addAttribute("numeroCarrito", numeroCarrito.size());
 		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
 		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
 		return "principal/index";
@@ -88,11 +98,11 @@ public class ClienteController {
 		usuario2.setCpostal(usuario.getCpostal());
 		usuario2.setProvincia(usuario.getProvincia());
 		usuDao.modificarDatosCliente(usuario2);
-	
+		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
 		
-		return "principal/index";
+		return "redirect:/cliente/";
 	}
-	
 	@PostMapping("/buscarEstacionesLibres")
 	public String verEstacionesLibres(Model model, @RequestParam String fecha) throws ParseException {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
@@ -118,6 +128,7 @@ public class ClienteController {
 		
 		reserva.setEstacione(estDao.findEstacionById(idEstacion));
 		reserva.setHorasCarga(horasCarga);
+		
 		Conectore conector= conDao.findConectorById(idConector);
 		reserva.setDescripcion(conector.getNombre());
 		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
@@ -128,27 +139,15 @@ public class ClienteController {
 		return "cliente/nuevaReserva";
 	}
 	
-	@PostMapping("/reservar")
-	public String reservar(Model model,Reserva reserva,@RequestParam int idEstacion, @RequestParam String fecha, @RequestParam String horas) throws ParseException {
+	@GetMapping("/reservar")
+	public String reservar(Model model) throws ParseException {
 		
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
-		
-		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
-		Date dataFormateada = formato.parse(fecha);
-		reserva.setFechaServicio(dataFormateada);
-		reserva.setFechaReserva(new Date());
-		if(horas.equals("Mañana")) {
-			reserva.setHorasCarga(new BigDecimal(1));
-		}else {
-			reserva.setHorasCarga(new BigDecimal(2));
-		}
-		reserva.setEstacione(estDao.findEstacionById(idEstacion));
-		reserva.setEstado("Pendiente");
-		reserva.setUsuario(usuario);
-		reserva.setPagado("No");
-		
-		resDao.altaReserva(reserva);
-		
+		List<Reserva> lista=(List<Reserva>) listaSesion.getAttribute("listaCarrito");
+		List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+		resDao.altaReservas(lista);
+		lista.clear();
+		numeroCarrito.clear();
 		model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
 		model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
 		
@@ -219,5 +218,62 @@ public class ClienteController {
 		
 		
 	}
+	@PostMapping("/addCarrito")
+	public String altaCarrito (Model model, Reserva reserva,@RequestParam int idEstacion, @RequestParam String fecha, @RequestParam String horas) throws ParseException {
+		
+		//Rescatamos las listas que tenemos en sesion 
+		List<Reserva> lista=(List<Reserva>) listaSesion.getAttribute("listaCarrito");
+		List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+		
+		
+			//sumamos un numero al lado del ver Carrito
+			numeroCarrito.add("Otra recarga al carrito");
+			
+			Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+			
+			SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
+			Date dataFormateada = formato.parse(fecha);
+			reserva.setFechaServicio(dataFormateada);
+			reserva.setFechaReserva(new Date());
+			
+			if(horas.equals("Manana")) {
+				reserva.setHorasCarga(new BigDecimal(1));
+			}else {
+				reserva.setHorasCarga(new BigDecimal(2));
+			}
+			reserva.setEstacione(estDao.findEstacionById(idEstacion));
+			reserva.setEstado("Pendiente");
+			reserva.setUsuario(usuario);
+			reserva.setPagado("No");
+			resDao.addReservaCarrito(reserva, lista);
+			System.out.println(lista);
+			//Presentamos los datos necesarios en el index
+			model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+			model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+			model.addAttribute("numeroCarrito", numeroCarrito.size());
+			model.addAttribute("listaReservas", lista);
+			return "redirect:/cliente/";
+		}
+	
+	@GetMapping("/verCarrito")
+	public String verCarrito(Model model) {
+		List<Reserva> lista=(List<Reserva>) listaSesion.getAttribute("listaCarrito");
+		model.addAttribute("listaReservas", lista);
+		return "cliente/verCarrito";
+	}
+	
+	@GetMapping("/eliminarCarrito/{idReserva}")
+	public String eliminarCarrito(Model model , @PathVariable int idReserva) {
+		List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+		List<Reserva> lista=(List<Reserva>) listaSesion.getAttribute("listaCarrito");
+		lista.remove(idReserva);
+		numeroCarrito.remove(0);
+		model.addAttribute("listaReservas", lista);
+		return "cliente/verCarrito";
+	}
+		
+		
+		
+	
 
 }

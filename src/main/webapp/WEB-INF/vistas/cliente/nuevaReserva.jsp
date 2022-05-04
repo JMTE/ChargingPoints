@@ -104,7 +104,7 @@ margin-left:25%;
 			<div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
-                <form class="form-horizontal" method="post" action="/cliente/reservar">
+                <form class="form-horizontal" method="post" action="/cliente/addCarrito">
                     <fieldset>
                         <legend class="text-center header">INFORMACIÓN NUEVA CARGA</legend>
 
@@ -137,7 +137,7 @@ margin-left:25%;
                             	<label>Franja Horaria</label>
                                 <c:choose>
     								<c:when test="${reserva.horasCarga==1}">
-    								<input type="text" class="form-control" name="horas" value="Mañana" readonly >
+    								<input type="text" class="form-control" name="horas" value="Manana" readonly >
     								</c:when>
 									
     								<c:otherwise>
