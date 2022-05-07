@@ -78,7 +78,7 @@ background:white:
 
 
 <div class="cuerpo  text-white ">
-
+ 
 <h2>LISTA DE ESTACIONES LIBRES PARA EL ${fecha }</h2>
 <table class="table">
   <thead>
@@ -86,7 +86,7 @@ background:white:
       <th scope="col">Nombre</th>
       <th scope="col">Direccion</th>
       <th scope="col"></th>
-      
+      <h3><i class="bi bi-info-circle"> ${mensajeError }</i></h3>
     </tr>
   </thead>
   
@@ -109,9 +109,10 @@ background:white:
     <tr>
     <td> ${ele2.nombre }</td>
     <td>
-    	<a class="btn btn-warning " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/1"><i
+   
+    	<a class="btn btn-warning " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/1/${ele2.nombre}"><i
 							class="bi bi-brightness-high"> Mañana</i></a>
-							 <a class="btn btn-info " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/2"><i
+							 <a class="btn btn-info " href="/cliente/reservar/${ele.idEstacion }/${ele2.idConector }/${fecha}/2/${ele2.nombre}"><i
 							class="bi bi-sunset"> Tarde</i></a>
     	</td>
     </tr>

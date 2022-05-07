@@ -1,5 +1,7 @@
 package fp.charging.points.modelo.dao;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 
@@ -26,8 +28,10 @@ public interface IntReservaDao {
 	
 	List<Reserva> findReservasPorEstacionAndCliente(int idEstacion, String username);
 	
-	//Añadir libros al carrito
+	
 	int addReservaCarrito(Reserva reserva, List<Reserva> lista);
+	
+	int findReservaPorEstacionFechaServicioHorasCargaDescripcion(int idEstacion,Date fechaServicio, BigDecimal horasCarga, String descripcion);
 	
 	
 

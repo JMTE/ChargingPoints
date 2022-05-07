@@ -134,4 +134,11 @@ public class Reserva implements Serializable {
 		this.usuario = usuario;
 	}
 
+	@Override
+	public String toString() {
+		return "Reserva [idReserva=" + idReserva + ", descripcion=" + descripcion + ", estado=" + estado + ", fechaReserva=" + fechaReserva + ", fechaServicio=" + fechaServicio + ", horasCarga="
+				+ horasCarga + ", pagado=" + pagado + ", precioTotal=" + precioTotal + ", estacione=" + estacione + ", usuario=" + usuario + "]";
+	}
+
+	
 }

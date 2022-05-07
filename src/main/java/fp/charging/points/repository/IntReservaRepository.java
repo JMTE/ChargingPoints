@@ -1,5 +1,7 @@
 package fp.charging.points.repository;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +26,10 @@ public interface IntReservaRepository extends JpaRepository<Reserva, Integer>{
 	
 	@Query("select r from Reserva r where estacione.idEstacion=?1 and estado='Pendiente'")
 	public List<Reserva> findReservasPorEstacionAndEstadoPendiente(@Param("idEstacion") int idEstacion);
+	
+	
+	
+	
 	
 	
 	

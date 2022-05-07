@@ -1,6 +1,8 @@
 package fp.charging.points.modelo.dao;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +104,26 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		return lista !=null?1:0;
 		
 	}
+
+	@Override
+	public int findReservaPorEstacionFechaServicioHorasCargaDescripcion(int idEstacion, Date fechaServicio, BigDecimal horasCarga, String descripcion) {
+		List<Reserva> listaReservaPorEstacion=resRepo.findReservaPorEstacion(idEstacion);
+		int filas=0;
+		Reserva reserva=new Reserva();
+		
+		for(Reserva ele:listaReservaPorEstacion) {
+			
+			if(ele.getFechaServicio().equals(fechaServicio)&&ele.getDescripcion().equals(descripcion)
+					&&Integer.valueOf(ele.getHorasCarga().intValueExact()).equals(Integer.valueOf(horasCarga.intValueExact()))) {
+					filas=1;
+				
+				
+			}
+		}
+		
+		return filas;
+	}
+
+	
 
 }

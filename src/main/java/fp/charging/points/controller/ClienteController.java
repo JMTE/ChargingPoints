@@ -121,22 +121,31 @@ public class ClienteController {
 		
 	}
 	
-	@GetMapping("/reservar/{idEstacion}/{idConector}/{fechaServicio}/{horasCarga}")
-	public String reservar (Model model , @PathVariable int idEstacion,@PathVariable int idConector, @PathVariable String fechaServicio, @PathVariable BigDecimal horasCarga ) throws ParseException {
-		
-		Reserva reserva=new Reserva();
-		
-		reserva.setEstacione(estDao.findEstacionById(idEstacion));
-		reserva.setHorasCarga(horasCarga);
-		
-		Conectore conector= conDao.findConectorById(idConector);
-		reserva.setDescripcion(conector.getNombre());
+	@GetMapping("/reservar/{idEstacion}/{idConector}/{fechaServicio}/{horasCarga}/{descripcion}")
+	public String reservar (Model model , @PathVariable int idEstacion,@PathVariable int idConector, @PathVariable String fechaServicio, @PathVariable BigDecimal horasCarga, @PathVariable String descripcion) throws ParseException {
 		SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy");
 		Date dataFormateada = formato.parse(fechaServicio);
-		reserva.setFechaServicio(dataFormateada);
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		if(resDao.findReservaPorEstacionFechaServicioHorasCargaDescripcion(idEstacion, dataFormateada, horasCarga,descripcion) == 1) {
+			model.addAttribute("listaEstacionesLibres",estDao.findAll());
+			model.addAttribute("fecha", sdf.format(dataFormateada));
+			model.addAttribute("mensajeError", "Esta franja horaria en este punto de carga esta reservado");
+			return "cliente/verEstacionesLibres";
+		}else {
+			Reserva reserva=new Reserva();
+			
+			reserva.setEstacione(estDao.findEstacionById(idEstacion));
+			reserva.setHorasCarga(horasCarga);
+			
+			Conectore conector= conDao.findConectorById(idConector);
+			reserva.setDescripcion(conector.getNombre());
+			
+			reserva.setFechaServicio(dataFormateada);
+			
+			model.addAttribute("reserva", reserva);
+			return "cliente/nuevaReserva";
+		}
 		
-		model.addAttribute("reserva", reserva);
-		return "cliente/nuevaReserva";
 	}
 	
 	@GetMapping("/reservar")
