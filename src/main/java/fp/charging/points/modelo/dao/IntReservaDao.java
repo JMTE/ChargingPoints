@@ -12,6 +12,8 @@ public interface IntReservaDao {
 	
 	List<Reserva> findAll();
 	
+	Reserva findReservaById(int idReserva);
+	
 	List<Reserva> findReservasPorEmpresa(int idEstacion);
 	
 	List<Reserva> findReservaPorUsuario(String username);
@@ -25,6 +27,8 @@ public interface IntReservaDao {
 	List<Reserva> findReservasPorUsuarioAndEstadoTerminada(String username);
 	
 	int cancelarReserva(int idReserva);
+	
+	int modificarReserva(int idReserva);
 	
 	List<Reserva> findReservasPorEstacionAndCliente(int idEstacion, String username);
 	

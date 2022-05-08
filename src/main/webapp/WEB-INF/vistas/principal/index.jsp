@@ -134,7 +134,9 @@ font-size:15px;
 											aria-label="Search" name="fecha">
 										<button class="btn btn-outline-success" type="submit">Buscar</button>
 									</form>
+									
 								</li>
+								<p> ${ mensajeFechaAnterior }</p>
 							</sec:authorize>
 						
 						</ul>
@@ -224,6 +226,7 @@ font-size:15px;
 
 
 					<h3>PROXIMAS RECARGAS</h3>
+					<p>${mensajeFinalizar}</p>
 					<table class="table">
 						<thead>
 							<tr>
@@ -258,8 +261,10 @@ font-size:15px;
 							<td>
 							<form action="/cliente/cancelarReserva/${ele.idReserva }" method="get" id="formularioCancelar">
 							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
+							<a class="btn btn-warning " href="/cliente/finalizarReserva/${ele.idReserva }"><i class="bi bi-recycle"> Finalizar</i></a>
 							</form>
 							</td>
+							
 						</tr>
 						</c:forEach>
 						

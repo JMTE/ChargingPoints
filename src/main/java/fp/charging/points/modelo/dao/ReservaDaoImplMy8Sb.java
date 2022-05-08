@@ -124,6 +124,24 @@ public class ReservaDaoImplMy8Sb implements IntReservaDao{
 		return filas;
 	}
 
+	@Override
+	public Reserva findReservaById(int idReserva) {
+		// TODO Auto-generated method stub
+		return resRepo.findById(idReserva).orElse(null);
+	}
+
+	@Override
+	public int modificarReserva(int idReserva) {
+		int filas=0;
+		try {
+			resRepo.save(resRepo.findById(idReserva).orElse(null));
+			filas=1;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return filas;
+	}
+
 	
 
 }

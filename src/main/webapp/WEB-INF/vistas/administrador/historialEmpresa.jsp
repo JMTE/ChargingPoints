@@ -51,10 +51,7 @@ background:white:
      
          <sec:authorize access="hasAuthority('ADMIN')">
         <li>
-        <form class="d-flex" action="/tema" method="post">
-      <input class="form-control me-2" type="search" placeholder="Buscar Recarga" aria-label="Search" name="username">
-      <button class="btn btn-outline-success" type="submit">Buscar</button>
-      	</form>
+        
       	</li>
       </sec:authorize> 
       
@@ -113,11 +110,7 @@ background:white:
 							<td>${ele.estado }</td>
 							<c:choose>
 							<c:when test="${ele.estado.equals('Pendiente') }">
-							<td>
-							<form action="/administrador/cancelarReserva/${ele.idReserva }/${ele.estacione.idEstacion}" method="get" id="formularioCancelar">
-							<input id=botonCancelar type="submit" class="btn btn-danger " value="Cancelar">
-							</form>
-							</td>
+							
 							</c:when>
 							</c:choose>
 							

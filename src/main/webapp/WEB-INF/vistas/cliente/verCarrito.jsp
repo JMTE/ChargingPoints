@@ -130,7 +130,7 @@ background:white:
 
 </div>
  <a class="btn btn-success " href="/cliente/reservar/"><i
-							class="bi bi-brightness-high">Reservar</i></a>
+							class="bi bi-bag"> Reservar</i></a>
 </div>
 </body>
 </html>

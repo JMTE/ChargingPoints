@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fp.charging.points.modelo.beans.Usuario;
+import fp.charging.points.repository.IntEstacioneRepository;
 import fp.charging.points.repository.IntUsuarioRepository;
 
 @Service
@@ -16,6 +17,9 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 
 	@Autowired
 	private IntUsuarioRepository usuRepo;
+	
+	@Autowired
+	private IntEstacioneRepository estRepo;
 	
 	@Override
 	public Usuario findUsuarioByDni(String dni) {
@@ -75,10 +79,14 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 
 		
 		Collections.reverse(lista);
+		if (lista.size()>=3) {
+			List<Usuario> lista10Ultimos=lista.subList(0, 3);
+			
+			return lista10Ultimos;
+		}else {
+			return usuRepo.findAll();
+		}
 		
-		List<Usuario> lista10Ultimos=lista.subList(0, 3);
-		
-		return lista10Ultimos;
 	}
 
 	@Override
@@ -95,6 +103,7 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 
 	@Override
 	public int borrarUsuario(String username) {
+		System.out.println("entro aqui");
 		int filas=0;
 		try {
 			usuRepo.deleteById(username);
@@ -128,6 +137,21 @@ public class UsuarioDaoImplMy8Sb implements IntUsuarioDao {
 	public List<Usuario> findClientesByNombre(String nombre) {
 		// TODO Auto-generated method stub
 		return usuRepo.findClientesByNombre(nombre);
+	}
+
+	@Override
+	public int borrarUsuarioEstacion(String username, int idEstacion) {
+		// TODO Auto-generated method stub
+		int filas=0;
+		try {
+			usuRepo.deleteById(username);
+			estRepo.deleteById(idEstacion);
+			filas=1;
+			
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return filas;
 	}
 
 }

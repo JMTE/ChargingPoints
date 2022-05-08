@@ -95,7 +95,7 @@ body {
 
 
 		<div class="cuerpo  p-2 text-white ">
-
+		<p>${mensajeNoEliminar}</p>
 			<h2>LISTA DE USUARIOS</h2>
 			<table class="table">
 				<thead>
@@ -149,7 +149,7 @@ body {
 				href="/administrador/altaAdmin">Añadir Administrador
 				<i class="bi bi-plus-circle"></i>
 			</a>
-			<p>${mensaje }</p>
+			
 		</div>
 
 	</div>

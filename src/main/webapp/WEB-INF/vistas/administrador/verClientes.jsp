@@ -106,7 +106,7 @@ background:white:
       	  <a class="btn btn-success " href="/administrador/historialUsuario/${ele.username }">Historial <i class="bi bi-activity"></i></a>
 	   </td>
 	   <td>  
-	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-activity"></i></a> 
+	   		<a class="btn btn-danger " href="/administrador/eliminarUsuario/${ele.username }">Eliminar <i class="bi bi-trash"></i></a> 
 	      
       </td>  
       

@@ -3,6 +3,7 @@ package fp.charging.points.controller;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -106,18 +107,33 @@ public class ClienteController {
 	@PostMapping("/buscarEstacionesLibres")
 	public String verEstacionesLibres(Model model, @RequestParam String fecha) throws ParseException {
 		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
-		if(usuDao.findUsuarioByDni(usuario.getUsername()).getVehiculo()==null) {
-			return "cliente/verVehiculo";
-		}else {
-			//Formateamos la fecha que nos devuelve como String para poder introducirla  como Date
-			SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
-			Date dataFormateada = formato.parse(fecha);
-			SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+		Date dataFormateada = formato.parse(fecha);
+		Date now=new Date();
+		
+		if(dataFormateada.before(now)) {
 			
-			model.addAttribute("listaEstacionesLibres",estDao.findAll());
-			model.addAttribute("fecha", sdf.format(dataFormateada));
-			return "cliente/verEstacionesLibres";
+			//Recuperamos la lista que nos va a dar el numero que tiene el Ver Carrito a su lado
+			List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+			model.addAttribute("numeroCarrito", numeroCarrito.size());
+			model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+			model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+			model.addAttribute("mensajeFechaAnterior", "La fecha no puede ser anterior a la actual");
+			return "principal/index";
+		}else {
+			if(usuDao.findUsuarioByDni(usuario.getUsername()).getVehiculo()==null) {
+				return "cliente/verVehiculo";
+			}else {
+				//Formateamos la fecha que nos devuelve como String para poder introducirla  como Date
+				
+				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+				
+				model.addAttribute("listaEstacionesLibres",estDao.findAll());
+				model.addAttribute("fecha", sdf.format(dataFormateada));
+				return "cliente/verEstacionesLibres";
+			}
 		}
+		
 		
 	}
 	
@@ -279,6 +295,30 @@ public class ClienteController {
 		numeroCarrito.remove(0);
 		model.addAttribute("listaReservas", lista);
 		return "cliente/verCarrito";
+	}
+	
+	@GetMapping("/finalizarReserva/{idReserva}")
+	public String finalizarReserva(Model model , @PathVariable int idReserva) {
+		Usuario usuario = (Usuario) sesion.getAttribute("usuario");
+		//Recuperamos la lista que nos va a dar el numero que tiene el Ver Carrito a su lado
+		List<String> numeroCarrito=(List<String>) sesionNumeroCarrito.getAttribute("numeroCarrito");
+		if (resDao.findReservaById(idReserva).getFechaServicio().after(new Date())) {
+			model.addAttribute("mensajeFinalizar", "No se puede finalizar una reserva antes de su fecha.Solo cancelar");
+			model.addAttribute("numeroCarrito", numeroCarrito.size());
+			model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+			model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+			return "redirect:/cliente/";	
+		}else {
+			resDao.findReservaById(idReserva).setEstado("Terminada");
+			resDao.modificarReserva(idReserva);
+			model.addAttribute("numeroCarrito", numeroCarrito.size());
+			model.addAttribute("listaReservasPendientes", resDao.findReservasPorUsuarioAndEstadoPendiente(usuario.getUsername()));
+			model.addAttribute("listaReservasPorCliente", resDao.findReservaPorUsuario(usuario.getUsername()));
+			return "redirect:/cliente/";
+		}
+		
+			
+		
 	}
 		
 		

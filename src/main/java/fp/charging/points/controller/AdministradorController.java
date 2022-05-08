@@ -108,20 +108,49 @@ public class AdministradorController {
 	public String eliminarUsuario(Model model,@PathVariable String username) {
 		
 		for(Perfile e:usuDao.findUsuarioByDni(username).getPerfiles()) {
-			if (e.getIdPerfil()!=1 || usuDao.findUsuariosAdministradores().size()>1) {
+			//Si el usuario es cliente
+			if (e.getIdPerfil()==3) {
+				System.out.println("Es cliente");
+				if(resDao.findReservaPorUsuario(username).size()>1) {
+					for(Reserva i: resDao.findReservaPorUsuario(username)){
+						resDao.cancelarReserva(i.getIdReserva());
+					}
+				}
 				
 				usuDao.borrarUsuario(username);
 				
 				model.addAttribute("listaUsuarios", usuDao.findAll());
+				//Si el perfil es empresa
 				
+			}else if(e.getIdPerfil()==2) {
+				//Eliminamos las reservas de esa estacion
+					int idEstacion=usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
+					if(resDao.findReservaPorUsuario(username).size()>1) {
+						for(Reserva a:resDao.findReservasPorEmpresa(idEstacion)) {
+							resDao.cancelarReserva(a.getIdReserva());
+						}
+					}
+					
+					//Eliminamos los conectores de esa estacion
+					estDao.findEstacionById(idEstacion).setConectores(null);
+					//Eliminamos la estacion y el usuario
+					usuDao.borrarUsuarioEstacion(username, idEstacion);
+					//Si el usuario es administrador
+					model.addAttribute("listaUsuarios", usuDao.findAll());
+			}else if(e.getIdPerfil()==1 && usuDao.findUsuariosAdministradores().size()>1) {
+				
+					usuDao.borrarUsuario(username);
+				
+					model.addAttribute("listaUsuarios", usuDao.findAll());
 				
 			}else {
-				model.addAttribute("mensaje", "No se puede eliminar el único perfil administrador");
+				
+				model.addAttribute("mensajeNoEliminar", "No se puede eliminar el único perfil administrador");
 				model.addAttribute("listaUsuarios", usuDao.findAll());
 				
 				}
 		}
-		return "redirect:/administrador/verUsuarios";
+		return "/administrador/verUsuarios";
 		
 	}
 	

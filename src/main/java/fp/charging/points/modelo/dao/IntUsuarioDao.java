@@ -14,6 +14,8 @@ public interface IntUsuarioDao {
 	
 	int borrarUsuario(String username);
 	
+	int borrarUsuarioEstacion(String username, int idEstacion);
+	
 	List<Usuario> findUsuariosEmpresa();
 	
 	List<Usuario> findUsuariosCliente();
