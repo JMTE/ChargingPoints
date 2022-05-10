@@ -41,7 +41,8 @@ background:white:
 <header>
 <nav class="navbar navbar-expand-lg navbar-light">
   <div class="container-fluid">
-    <a class="navbar-brand  " href="/index"><i class="bi bi-bank"> CHARGING POINTS</i></a>
+  <img alt="imagen" src="/img/Logo.jpg" style="width:50px; margin-right:10px">
+    <a class="navbar-brand  " href="/index"> CHARGING POINTS</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>

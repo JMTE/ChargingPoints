@@ -172,7 +172,7 @@ public class EmpresaController {
 	}
 	
 	@PostMapping("/buscarCliente")
-	public String buscarCliente(Model model, String nombre, int idEstacion) {
+	public String buscarCliente(Model model, String nombre) {
 		
 		model.addAttribute("listaClientes", usuDao.findClientesByNombre(nombre));
 		return "empresa/verClientes";
