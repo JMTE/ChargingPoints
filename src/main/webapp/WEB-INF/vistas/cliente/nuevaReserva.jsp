@@ -28,7 +28,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
 	crossorigin="anonymous"></script>
- <script src="/mainReserva.js"></script>
+ <script src="/js/mainReserva.js"></script>
  <link rel="stylesheet"
 	href="/styles.css">
 	<style>
@@ -166,7 +166,7 @@ margin-left:25%;
                             <span class="col-md-1 col-md-offset-2 text-center"><i class="fa fa-phone-square bigicon"></i></span>
                             <div class="col-md-8">
                             	<label>Precio</label>
-                                <input id="precio" name="precioTotal"  readonly class="form-control">
+                                <input id="precio"  name="precioTotal"  readonly class="form-control">
                             </div>
                         </div>
                         

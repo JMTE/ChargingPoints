@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"fp.charging.points"},{"l":"fp.charging.points.controller"},{"l":"fp.charging.points.modelo.beans"},{"l":"fp.charging.points.modelo.dao"},{"l":"fp.charging.points.repository"},{"l":"fp.charging.points.security"}]

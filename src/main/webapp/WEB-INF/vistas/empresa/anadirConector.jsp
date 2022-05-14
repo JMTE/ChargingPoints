@@ -72,6 +72,7 @@ margin-top:20px;
 <div class="container" id="contenedorAlta">
 
 <h1> AÑADIR CONECTOR A LA ESTACIÓN</h1>
+<p>${mensajeConector }</p>
 <form action="/empresa/anadirConector" method="post">
 
 	 <div class="form-group">
