@@ -119,8 +119,10 @@ public class ClienteController {
 	public String modificarDatosCliente(Model model, Usuario usuario) {
 
 		Usuario usuario2 = usuDao.findUsuarioByDni(usuario.getUsername());
-
-		usuario2.setPassword(pwenco.encode(usuario.getPassword()));
+		if(!usuario.getPassword().equals(usuario2.getPassword())) {
+		usuario2.setPassword(pwenco.encode(usuario.getPassword()));	
+		}
+		
 		usuario2.setNombre(usuario.getNombre());
 		usuario2.setApellidos(usuario.getApellidos());
 		usuario2.setDireccion(usuario.getDireccion());
@@ -453,5 +455,7 @@ public class ClienteController {
 		}
 
 	}
+	
+	
 
 }

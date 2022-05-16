@@ -136,25 +136,31 @@ public class AdministradorController {
 
 		Usuario usuario = usuDao.findUsuarioByDni(username);
 		BigDecimal totalGastado = new BigDecimal(0);
-		// Comprobamos si se trata de un usuario cliente o empresa
-		if (usuario.getEstacione() == null) {
+		if(usuario.getPerfiles().get(0).getIdPerfil()!=1) {
+			// Comprobamos si se trata de un usuario cliente o empresa
+			if (usuario.getEstacione() == null) {
 
-			// Si es usuario cliente calculamos todo lo que lleva gastado
-			for (Reserva e : resDao.findReservasPorUsuarioAndEstadoTerminada(username)) {
-				totalGastado = totalGastado.add(e.getPrecioTotal());
+				// Si es usuario cliente calculamos todo lo que lleva gastado
+				for (Reserva e : resDao.findReservasPorUsuarioAndEstadoTerminada(username)) {
+					totalGastado = totalGastado.add(e.getPrecioTotal());
+				}
+
+				// Mostramos la pantalla de historial usuario
+				model.addAttribute("listaReservaPorUsuario", resDao.findReservaPorUsuario(username));
+				model.addAttribute("totalGastado", totalGastado);
+				return "administrador/historialUsuario";
+			} else {
+				// Mostramos la pantalla de historial empresa
+				int idEstacion = usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
+				model.addAttribute("listaReservas", resDao.findReservasPorEmpresa(idEstacion));
+				return "administrador/historialEmpresa";
+
 			}
-
-			// Mostramos la pantalla de historial usuario
-			model.addAttribute("listaReservaPorUsuario", resDao.findReservaPorUsuario(username));
-			model.addAttribute("totalGastado", totalGastado);
-			return "administrador/historialUsuario";
-		} else {
-			// Mostramos la pantalla de historial empresa
-			int idEstacion = usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
-			model.addAttribute("listaReservas", resDao.findReservasPorEmpresa(idEstacion));
-			return "administrador/historialEmpresa";
-
+		}else {
+			model.addAttribute("listaUsuarios", usuDao.findAll());
+			return "administrador/verUsuarios";
 		}
+		
 
 	}
 
@@ -187,7 +193,7 @@ public class AdministradorController {
 			} else if (e.getIdPerfil() == 2) {
 				// Eliminamos las reservas de esa estacion
 				int idEstacion = usuDao.findUsuarioByDni(username).getEstacione().getIdEstacion();
-				if (resDao.findReservaPorUsuario(username).size() > 1) {
+				if (resDao.findReservasPorEmpresa(idEstacion).size() > 0) {
 					for (Reserva a : resDao.findReservasPorEmpresa(idEstacion)) {
 						resDao.cancelarReserva(a.getIdReserva());
 					}
