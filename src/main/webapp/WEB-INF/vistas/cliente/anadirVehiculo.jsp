@@ -69,10 +69,10 @@ body {
             name="matricula">
         </div>
         <div class="form-group">
-          <label for="matricula">Potencia</label> <input type="number" class="form-control" placeholder="Potencia" name="potencia">
+          <label for="matricula">Potencia</label> <input type="number" class="form-control" placeholder="Potencia" name="potencia" required>
         </div>
         <div class="form-group">
-          <label for="matricula">Autonomia</label> <input type="number" class="form-control" placeholder="Autonomia" name="autonomia">
+          <label for="matricula">Autonomia</label> <input type="number" class="form-control" placeholder="Autonomia" name="autonomia" required>
         </div>
         <div class="form-group">
           <label>Tipo Conector</label> <select class="form-select" aria-label="Default select example" name="idConector" required>

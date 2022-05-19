@@ -20,6 +20,7 @@ import fp.charging.points.modelo.beans.Usuario;
 import fp.charging.points.modelo.dao.IntEstacioneDao;
 import fp.charging.points.modelo.dao.IntReservaDao;
 import fp.charging.points.modelo.dao.IntUsuarioDao;
+import fp.charging.points.modelo.dao.IntVehiculoDao;
 
 /**
  * 
@@ -47,6 +48,9 @@ public class AdministradorController {
 
 	@Autowired
 	private IntEstacioneDao estDao;
+	
+	@Autowired
+	private IntVehiculoDao vehDao;
 
 	/**
 	 * Este metodo con su anotacion GetMapping actúa como un acceso directo para @RequestMapping (method
@@ -179,14 +183,15 @@ public class AdministradorController {
 			// Si el usuario es cliente
 			if (e.getIdPerfil() == 3) {
 				// Comprobamos si tiene reservas y las eliminamos
-				if (resDao.findReservaPorUsuario(username).size() > 1) {
+				if (resDao.findReservaPorUsuario(username).size() > 0) {
 					for (Reserva i : resDao.findReservaPorUsuario(username)) {
 						resDao.cancelarReserva(i.getIdReserva());
 					}
 				}
+				String matricula=usuDao.findUsuarioByDni(username).getVehiculo().getMatricula();
 				// Borramos usuario
 				usuDao.borrarUsuario(username);
-
+				vehDao.eliminarVehiculo(matricula);
 				model.addAttribute("listaUsuarios", usuDao.findAll());
 
 				// Si el perfil es empresa
